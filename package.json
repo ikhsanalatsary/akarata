@@ -27,5 +27,8 @@
     "chai": "3.5.0",
     "jscs": "2.11.0",
     "mocha": "2.4.5"
+  },
+  "dependencies": {
+    "lodash": "4.6.1"
   }
 }

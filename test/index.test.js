@@ -54,6 +54,39 @@ describe("Stemmer", () => {
 			ShouldNotTransform(Stemmer.removeParticle, 'kepunyaan');
 		});
 	});
+
+	describe("Remove possesive pronoun", () => {
+		describe("should remove these possessive pronouns at the end of the word", () => {
+			it("'ku'", () => {
+				ShouldTransform(Stemmer.removePossesive, 'mainanku', 'mainan');
+			});
+
+			it("'mu'", () => {
+				ShouldTransform(Stemmer.removePossesive, 'gelasmu', 'gelas');
+			});
+
+			it("'nya'", () => {
+				ShouldTransform(Stemmer.removePossesive, 'mobilnya', 'mobil');
+			});
+		});
+
+		describe("should not remove these possessive pronouns at the rest part of the word", () => {
+			it("'ku'", () => {
+				ShouldNotTransform(Stemmer.removePossesive, 'kumakan');
+				ShouldNotTransform(Stemmer.removePossesive, 'kekurangan');
+			});
+
+			it("'mu'", () => {
+				ShouldNotTransform(Stemmer.removePossesive, 'murahan');
+				ShouldNotTransform(Stemmer.removePossesive, 'kemurkaan');
+			});
+
+			it("'nya'", () => {
+				ShouldNotTransform(Stemmer.removePossesive, 'nyapu');
+				ShouldNotTransform(Stemmer.removePossesive, 'menyambung');
+			});
+		});
+	});
 });
 
 function ShouldTransform (methodName, word, transformWord) {

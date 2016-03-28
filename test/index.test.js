@@ -21,4 +21,45 @@ describe("Stemmer", () => {
 			Stemmer.totalSyllables('permainan').should.equal(4);
 		});
 	});
+
+	describe("Remove particle", () => {
+		describe("should remove these particles at the end of the word", () => {
+			it("'kah'", () => {
+				ShouldTransform(Stemmer.removeParticle, 'manakah', 'mana');
+			});
+
+			it("'lah'", () => {
+				ShouldTransform(Stemmer.removeParticle, 'itulah', 'itu');
+			});
+
+			it("'pun'", () => {
+				ShouldTransform(Stemmer.removeParticle, 'bagaimanapun', 'bagaimana');
+			});
+		});
+	});
+
+	describe("should not remove these particles at the rest part of the word", () => {
+		it("'kah'", () => {
+			ShouldNotTransform(Stemmer.removeParticle, 'kahak');
+			ShouldNotTransform(Stemmer.removeParticle, 'pernikahan');
+		});
+
+		it("'lah'", () => {
+			ShouldNotTransform(Stemmer.removeParticle, 'lahiriah');
+			ShouldNotTransform(Stemmer.removeParticle, 'kelahiran');
+		});
+
+		it("'pun'", () => {
+			ShouldNotTransform(Stemmer.removeParticle, 'punya');
+			ShouldNotTransform(Stemmer.removeParticle, 'kepunyaan');
+		});
+	});
 });
+
+function ShouldTransform (methodName, word, transformWord) {
+	methodName(word).should.equal(transformWord);
+}
+
+function ShouldNotTransform (methodName, word) {
+	methodName(word).should.equal(word);
+}

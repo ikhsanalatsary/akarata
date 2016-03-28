@@ -4,7 +4,7 @@
   "description": "Library Javascript untuk memisahkan kata dari imbuhan awal ataupun akhir pada bahasa Indonesia",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha -w --compilers js:babel-register"
   },
   "repository": {
     "type": "git",

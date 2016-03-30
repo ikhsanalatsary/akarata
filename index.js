@@ -3,7 +3,6 @@
 import _ from 'lodash';
 import StemmerUtility from './lib/stemmer_utility.js';
 
-const isEndsWith = StemmerUtility.isEndsWith;
 const VOWEL = ['a', 'e', 'i', 'o', 'u'];
 const PARTICLE_CHARACTERS = ['kah', 'lah', 'pun'];
 const POSSESIVE_PRONOUN_CHARACTERS = ['ku', 'mu', 'nya'];
@@ -19,31 +18,25 @@ function totalSyllables (word) {
 }
 
 function removeParticle (word) {
-	return removeMatchingCollection(word, 'particle', 'end');
+	return removeMatchingCollection(word, PARTICLE_CHARACTERS, 'end');
 }
 
 function removePossesive (word) {
-	return removeMatchingCollection(word, 'possesive', 'end');
+	return removeMatchingCollection(word, POSSESIVE_PRONOUN_CHARACTERS, 'end');
 }
 
 function removeMatchingCollection (word, type, position) {
 	var numberOfSyllables = totalSyllables(word);
+	var selectedPosition = _.camelCase(`is ${position}s with`);
 
-	if (type === 'particle' && position === 'end') {
-		PARTICLE_CHARACTERS.forEach((char) => {
-			if (isEndsWith(word, word.length, char)) {
-				numberOfSyllables -= 1;
+	type.forEach((char) => {
+		if (StemmerUtility[selectedPosition](word, word.length, char)) {
+			numberOfSyllables -= 1;
+			if (position === 'end') {
 				word = word.slice(0, char.length * -1);
 			}
-		});
-	} else if (type === 'possesive' && position === 'end') {
-		POSSESIVE_PRONOUN_CHARACTERS.forEach((char) => {
-			if (isEndsWith(word, word.length, char)) {
-				numberOfSyllables -= 1;
-				word = word.slice(0, char.length * -1);
-			}
-		});
-	}
+		}
+	});
 
 	return word;
 }

@@ -87,6 +87,169 @@ describe("Stemmer", () => {
 			});
 		});
 	});
+
+	describe("Remove first order prefix", () => {
+		describe("words with these special characters", () => {
+			describe("at the begining", () => {
+				describe("followed by a vowel, should remove and substitute the last character", () => {
+					it("'meny'", () => {
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menyapu', 'sapu');
+					});
+
+					it("'pen'", () => {
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penulis', 'tulis');
+					});
+
+					it("'peny'", () => {
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penyongsong', 'songsong');
+					});
+				});
+
+				describe("followed by consonant, should only remove the special characters", () => {
+					it("'meny'", () => {
+						// TODO: Find a real indonesian word for this case
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menyxxx', 'xxx');
+					});
+
+					it("'peny'", () => {
+						// TODO: Find a real indonesian word for this case
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penyxxx', 'xxx');
+					});
+
+					it("'pen'", () => {
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penjahat', 'jahat');
+					});
+				});
+			});
+
+			describe("at the rest part of the word", () => {
+				describe("followed by a vowel, should not do anything", () => {
+					it("'meny'", () => {
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmenyaxx');
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmenya');
+					});
+
+					it("'peny'", () => {
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpenyaxx');
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpenya');
+					});
+
+					it("'pen'", () => {
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpenexx');
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpeno');
+					});
+				});
+			});
+
+			describe("followed by consonant, should not do anything", () => {
+				it("'meny'", () => {
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmenykxx');
+						ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmenyk');
+					});
+
+				it("'peny'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpenykxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpenyk');
+				});
+
+				it("'pen'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpenrxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpenr');
+				});
+			});
+		});
+
+		describe("words with first order prefix characters", () => {
+			describe("at the begining, should remove these characters", () => {
+				it("'meng'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menggambar', 'gambar');
+				});
+
+				it("'men'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'mendaftar', 'daftar');
+				});
+
+				it("'mem'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'membangun', 'bangun');
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'membeli', 'beli');
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'memberi', 'beri');
+				});
+
+				it("'me'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'melukis', 'lukis');
+				});
+
+				it("'peng'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penggaris', 'garis');
+				});
+
+				it("'pem'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'pembajak', 'bajak');
+				});
+
+				it("'di'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'disayang', 'sayang');
+				});
+
+				it("'ter'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'terakhir', 'akhir');
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'terucap', 'ucap');
+				});
+
+				it("'ke'", () => {
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'kemana', 'mana');
+					ShouldTransform(Stemmer.removeFirstOrderPrefix, 'kemakan', 'makan');
+				});
+			});
+
+			describe("at the rest part of the word, should not remove these characters", () => {
+				it("'meng'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmengxex');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xexmeng');
+				});
+
+				it("'men'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmenxxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmen');
+				});
+
+				it("'mem'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmemxxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmem');
+				});
+
+				it("'me'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxmexxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxme');
+				});
+
+				it("'peng'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpengxxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpeng');
+				});
+
+				it("'pem'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpemxxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxpem');
+				});
+
+				it("'di'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxdixxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxdi');
+				});
+
+				it("'ter'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxterxxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxter');
+				});
+
+				it("'ke'", () => {
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxkexxx');
+					ShouldNotTransform(Stemmer.removeFirstOrderPrefix, 'xxxke');
+				});
+			});
+		});
+	});
 });
 
 function ShouldTransform (methodName, word, transformWord) {

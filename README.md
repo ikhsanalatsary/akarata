@@ -1,2 +1,6 @@
-# Menyetem
-Library Javascript untuk memisahkan kata dari imbuhan awal ataupun akhir pada bahasa Indonesia.
+# Akarata
+Akarata adalah Library Javascript untuk mengambil akar kata/suku kata(stem) dari kata yang berimbuhan awal ataupun akhir pada bahasa Indonesia. Akarata diambil dari kata "akar kata", agar lebih pendek saat penyebutannya.
+
+Masih proses...
+
+Mohon doanya...

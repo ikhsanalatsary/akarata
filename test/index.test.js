@@ -269,6 +269,12 @@ describe("Stemmer", () => {
 		});
 
 		describe("should handle words starting with 'be*er' where * isn't a vowel & the length > 4", () => {
+			it("'beserta'", () => {
+				ShouldTransform(Stemmer.removeSecondOrderPrefix, 'beserta', 'serta');
+			});
+		});
+
+		describe("words with second order prefix characters", () => {
 			describe("at the beginning", () => {
 				describe("should remove these characters", () => {
 					it("'ber'", () => {

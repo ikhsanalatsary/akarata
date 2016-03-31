@@ -8,6 +8,10 @@ const PARTICLE_CHARACTERS = ['kah', 'lah', 'pun'];
 const POSSESIVE_PRONOUN_CHARACTERS = ['ku', 'mu', 'nya'];
 const FIRST_ORDER_PREFIX_CHARACTERS = ['meng', 'meny', 'men', 'mem', 'me', 'peng', 'peny', 'pen', 'pem', 'di', 'ter', 'ke'];
 const SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS = ['meny', 'peny', 'pen'];
+const SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'be', 'per', 'pe'];
+const SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['be'];
+const NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'per', 'pe'];
+const SPECIAL_SECOND_ORDER_PREFIX_WORDS = ['belajar', 'pelajar', 'belunjur'];
 
 function totalSyllables (word) {
  	var result = 0;
@@ -45,6 +49,21 @@ function removeFirstOrderPrefix (word) {
 	return word;
 }
 
+function removeSecondOrderPrefix (word) {
+	var numberOfSyllables = totalSyllables(word);
+	var wordLength = word.length;
+
+	if (_.includes(SPECIAL_SECOND_ORDER_PREFIX_WORDS, word)) {
+		numberOfSyllables -= 1;
+		return sliceWordWithPosition(word, 3, 'start');
+	} else if (StemmerUtility.isStartsWith(word, wordLength, 'be') && wordLength > 4 && !isVowel(word[2]) && word.substring(3, 5) === 'er') {
+		numberOfSyllables -= 1;
+		return sliceWordWithPosition(word, 2, 'start');
+	} else {
+		return removeMatchingCollection(word, NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS, 'start');
+	}
+}
+
 function removeParticle (word) {
 	return removeMatchingCollection(word, PARTICLE_CHARACTERS, 'end');
 }
@@ -55,19 +74,18 @@ function removePossesive (word) {
 
 function removeMatchingCollection (word, type, position) {
 	var numberOfSyllables = totalSyllables(word);
-	var selectedPosition = _.camelCase(`is ${position}s with`);
+	var Position = _.camelCase(`is ${position}s with`);
 
 
 	type.forEach((char) => {
-		if (StemmerUtility[selectedPosition](word, word.length, char)) {
+		if (StemmerUtility[Position](word, word.length, char)) {
 			numberOfSyllables -= 1;
 
 			if (position === 'end') {
 				word = word.slice(0, char.length * -1);
 			} else {
 				word = word.slice(char.length);
-			};
-
+			}
 		}
 	});
 
@@ -78,9 +96,20 @@ function isVowel (character) {
 	return _.includes(VOWEL, character);
 }
 
+function sliceWordWithPosition(word, charLength, position) {
+	if (position === 'end') {
+		word = word.slice(0, charLength * -1);
+	} else {
+		word = word.slice(charLength);
+	}
+
+	return word;
+}
+
 module.exports = {
 	totalSyllables,
 	removeParticle,
 	removePossesive,
-	removeFirstOrderPrefix
+	removeFirstOrderPrefix,
+	removeSecondOrderPrefix
 }

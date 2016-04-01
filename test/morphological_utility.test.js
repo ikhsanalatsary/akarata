@@ -191,6 +191,7 @@ describe("Stemmer", () => {
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'melukis', 'lukis');
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'memakan', 'makan');
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'meminum', 'minum');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menikah', 'nikah');
 					});
 
 					it("'peng'", () => {

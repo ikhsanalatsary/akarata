@@ -52,6 +52,10 @@ describe("Akarata", () => {
 			ShouldStem(Stemmer.stem, 'menuduh', 'tuduh');
 		});
 
+		it("'me'", () => {
+			ShouldStem(Stemmer.stem, 'menikah', 'nikah');
+		});
+
 		describe("'mem' followed by 'p'", () => {
 			it("'mem'", () => {
 				ShouldStem(Stemmer.stem, 'memilih', 'pilih');
@@ -156,6 +160,20 @@ describe("Akarata", () => {
 		it("'i'", () => {
 			ShouldStem(Stemmer.stem, 'ajari', 'ajar');
 			ShouldStem(Stemmer.stem, 'cermati', 'cermat');
+		});
+	});
+
+	describe("Hooked the stemmer to String prototype as stem method", () => {
+		it("'menikahi'.stem() should return 'nikah'", () => {
+			'menikahi'.stem().should.equal('nikah');
+		});
+
+		it("'bersahabat'.stem() should return 'sahabat'", () => {
+			'bersahabat'.stem().should.equal('sahabat');
+		});
+
+		it("'beriman'.stem() should return 'iman'", () => {
+			'beriman'.stem().should.equal('iman');
 		});
 	});
 });

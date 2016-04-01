@@ -18,7 +18,6 @@ function stem (word, derivationalStemming = true) {
 
 	if (numberSyllables > 2 && word !== 'pilah') {
 		word = removeParticle(word);
-		if (word === 'buku') numberSyllables -= 1;
 	}
 
 	return word;
@@ -28,8 +27,6 @@ function stemDerivational (word) {
 	var numberSyllables = totalSyllables(word);
 	var previousLength = word.length;
 	if (numberSyllables > 2) word = removeFirstOrderPrefix(word);
-	if (word === 'puji') numberSyllables -= 1;
-	if (word === 'pakai') numberSyllables -= 2;
 
 	if (previousLength === word.length) {
 	  if (numberSyllables > 2) word = removeSecondOrderPrefix(word);

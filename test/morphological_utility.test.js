@@ -29,6 +29,7 @@ describe("Stemmer", () => {
 		describe("should remove these particles at the end of the word", () => {
 			it("'kah'", () => {
 				ShouldTransform(Stemmer.removeParticle, 'manakah', 'mana');
+				ShouldTransform(Stemmer.removeParticle, 'bukukah', 'buku');
 			});
 
 			it("'lah'", () => {
@@ -62,6 +63,7 @@ describe("Stemmer", () => {
 		describe("should remove these possessive pronouns at the end of the word", () => {
 			it("'ku'", () => {
 				ShouldTransform(Stemmer.removePossesive, 'mainanku', 'mainan');
+				ShouldTransform(Stemmer.removePossesive, 'bukuku', 'buku');
 			});
 
 			it("'mu'", () => {
@@ -182,6 +184,7 @@ describe("Stemmer", () => {
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'membangun', 'bangun');
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'membeli', 'beli');
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'memberi', 'beri');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'memilah', 'pilah');
 					});
 
 					it("'me'", () => {

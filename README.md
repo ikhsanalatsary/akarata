@@ -1,7 +1,7 @@
 # Akarata
 
 [![Code Climate](https://codeclimate.com/github/ikhsanalatsary/akarata/badges/gpa.svg)](https://codeclimate.com/github/ikhsanalatsary/akarata)
-[![Code Climate](https://codeclimate.com/github/ikhsanalatsary/akarata/badges/gpa.svg)](https://codeclimate.com/github/ikhsanalatsary/akarata)
+[![Test Coverage](https://codeclimate.com/github/ikhsanalatsary/akarata/badges/coverage.svg)](https://codeclimate.com/github/ikhsanalatsary/akarata/coverage)
 
 Akarata adalah Library Javascript untuk mengambil akar kata/suku kata(stem) dari kata yang berimbuhan awal ataupun akhir pada bahasa Indonesia. Akarata diambil dari kata "akar kata", agar lebih pendek saat penyebutannya.
 
@@ -9,7 +9,7 @@ Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, den
 
 ## Instalasi
 
-	`npm install --save akarata`
+	npm install --save akarata
 
 ## Penggunaan
 

@@ -41,10 +41,6 @@ function stemDerivational (word) {
 	return word;
 }
 
-String.prototype.stem = function () {
-	return stem(this);
-}
-
 module.exports = {
 	stem
 }

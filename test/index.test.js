@@ -162,18 +162,4 @@ describe("Akarata", () => {
 			ShouldStem(Stemmer.stem, 'cermati', 'cermat');
 		});
 	});
-
-	describe("Hooked the stemmer to String prototype as stem method", () => {
-		it("'menikahi'.stem() should return 'nikah'", () => {
-			'menikahi'.stem().should.equal('nikah');
-		});
-
-		it("'bersahabat'.stem() should return 'sahabat'", () => {
-			'bersahabat'.stem().should.equal('sahabat');
-		});
-
-		it("'beriman'.stem() should return 'iman'", () => {
-			'beriman'.stem().should.equal('iman');
-		});
-	});
 });

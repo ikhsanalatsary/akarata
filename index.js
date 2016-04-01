@@ -12,6 +12,7 @@ const SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'be', 'per', 'pe'];
 const SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['be'];
 const NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'per', 'pe'];
 const SPECIAL_SECOND_ORDER_PREFIX_WORDS = ['belajar', 'pelajar', 'belunjur'];
+const SUFFIX_CHARACTERS = ['kan', 'an', 'i'];
 
 function totalSyllables (word) {
  	var result = 0;
@@ -71,6 +72,10 @@ function removeSecondOrderPrefix (word) {
 	}
 }
 
+function removeSuffix (word) {
+	return removeMatchingCollection(word, SUFFIX_CHARACTERS, 'end');
+}
+
 function removeParticle (word) {
 	return removeMatchingCollection(word, PARTICLE_CHARACTERS, 'end');
 }
@@ -118,5 +123,6 @@ module.exports = {
 	removeParticle,
 	removePossesive,
 	removeFirstOrderPrefix,
-	removeSecondOrderPrefix
+	removeSecondOrderPrefix,
+	removeSuffix
 }

@@ -316,6 +316,42 @@ describe("Stemmer", () => {
 			});
 		});
 	});
+
+	describe("Remove Suffix", () => {
+		describe("word with these suffix characters", () => {
+			describe("at the end of the word, should remove the suffix characters", () => {
+				it("'kan'", () => {
+					ShouldTransform(Stemmer.removeSuffix, 'katakan', 'kata');
+				});
+
+				it("'an'", () => {
+					ShouldTransform(Stemmer.removeSuffix, 'sandaran', 'sandar');
+					ShouldTransform(Stemmer.removeSuffix, 'makanan', 'makan');
+				});
+
+				it("'i'", () => {
+					ShouldTransform(Stemmer.removeSuffix, 'tiduri', 'tidur');
+				});
+			});
+		});
+
+		describe("at the rest part of the word, should not remove the characters", () =>{
+			it("'kan'", () => {
+				ShouldNotTransform(Stemmer.removeSuffix, 'kanxxx');
+				ShouldNotTransform(Stemmer.removeSuffix, 'xxxkanxxx');
+			});
+
+			it("'an'", () => {
+				ShouldNotTransform(Stemmer.removeSuffix, 'anxxx');
+				ShouldNotTransform(Stemmer.removeSuffix, 'xxxanxxx');
+			});
+
+			it("'an'", () => {
+				ShouldNotTransform(Stemmer.removeSuffix, 'ixxx');
+				ShouldNotTransform(Stemmer.removeSuffix, 'xxxixxx');
+			});
+		});
+	});
 });
 
 function ShouldTransform (methodName, word, transformWord) {

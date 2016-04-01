@@ -94,6 +94,9 @@ describe("Stemmer", () => {
 				describe("followed by a vowel, should remove and substitute the last character", () => {
 					it("'meny'", () => {
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menyapu', 'sapu');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menyanyi', 'nyanyi');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menyala', 'nyala');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menyata', 'nyata');
 					});
 
 					it("'pen'", () => {
@@ -102,6 +105,8 @@ describe("Stemmer", () => {
 
 					it("'peny'", () => {
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penyongsong', 'songsong');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penyakit', 'sakit');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penyanyi', 'nyanyi');
 					});
 				});
 
@@ -178,6 +183,8 @@ describe("Stemmer", () => {
 
 					it("'me'", () => {
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'melukis', 'lukis');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'memakan', 'makan');
+						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'meminum', 'minum');
 					});
 
 					it("'peng'", () => {

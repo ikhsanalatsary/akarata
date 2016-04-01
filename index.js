@@ -34,16 +34,23 @@ function removeFirstOrderPrefix (word) {
 			var substituteChar;
 
 			switch (typeof word != 'undefined') {
-				case _.includes(['meny', 'peny'], char):
+				case (_.includes(['meny', 'peny'], char) && word.substring(2) !== 'nyanyi' && word.substring(2) !== 'nyala' && word.substring(2) !== 'nyata'):
 					substituteChar = 's';
 				break;
 				case char === 'pen':
 					substituteChar = 't';
 				break;
+				case (word.substring(2) === 'nyanyi' || word.substring(2) === 'nyala' || word.substring(2) === 'nyata'):
+					substituteChar = 'ny';
+				break;
 			}
 			if (substituteChar) word = substituteChar + word.slice(charLength);
 		}
 	});
+	if (word === 'memakan' || word === 'meminum') {
+		word = sliceWordWithPosition(word, 2, 'start');
+	}
+
 	word = removeMatchingCollection(word, FIRST_ORDER_PREFIX_CHARACTERS, 'start');
 
 	return word;

@@ -14,13 +14,16 @@ Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, den
 
 ## Penggunaan
 
-	use Babel:
-		import Akarata from 'akarata';
-		Akarata.stem('menikah'); // nikah
+Babel:
 
-	Regular JavaScript:
-		var Akarata = require('akarata');
-		Akarata.stem('belajar'); // ajar
+	import Akarata from 'akarata';
+	Akarata.stem('menikah'); // nikah
+
+
+JavaScript Biasa:
+
+	var Akarata = require('akarata');
+	Akarata.stem('belajar'); // ajar
 
 
 ## Masalah

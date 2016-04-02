@@ -1,5 +1,2 @@
-./lib
-./test
-node_modules
 coverage
 index.js

@@ -1,6 +1,6 @@
 {
   "name": "akarata",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Library Javascript untuk memisahkan kata dari imbuhan awal ataupun akhir pada bahasa Indonesia",
   "main": "dist/index.js",
   "scripts": {

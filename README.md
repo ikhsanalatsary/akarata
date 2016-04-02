@@ -27,7 +27,7 @@ Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, den
 Karena library ini masih tahap development, jika diketahui ada masalah silahkan buat [tiket baru](https://github.com/ikhsanalatsary/akarata/issues/new)
 
 ## Berkontribusi
-Awalnya, gem ini merupakan implementasi dari sistem penganalisa untuk bahasa Indonesia, dari proyek [Apache Lucene](http://lucene.apache.org/), ke dalam bahasa Ruby. Gem ini sudah mengalami beberapa perubahan algoritma dalam mengenali awalan kata, terutama terhadap kata-kata yang ambigu.
+Awalnya, library ini merupakan implementasi dari sistem penganalisa untuk bahasa Indonesia, dari proyek [Apache Lucene](http://lucene.apache.org/), ke dalam bahasa JavaScript.
 
 ### Referensi
 1. [Situs Resmi Kamus Bahasa Indonesia](http://bahasa.kemdiknas.go.id/kbbi/index.php)
@@ -44,7 +44,8 @@ Awalnya, gem ini merupakan implementasi dari sistem penganalisa untuk bahasa Ind
 ## Terima kasih
 Setelah bersyukur kepada Allah Subhanahu Wa Ta'ala, kami ingin mengucapkan terima kasih kepada:
 
-- Fadillah Z Tala & [Apache Lucene](http://lucene.apache.org/) sehingga kami dapat mulai membuat gem ini
+- Fadillah Z Tala & [Apache Lucene](http://lucene.apache.org/) sehingga kami dapat mulai membuat library ini
 - Penyedia [Kateglo Bahtera](http://kateglo.bahtera.org/), karena telah menyediakan API nya sehingga saya bisa memilih & memisahkan kata-kata ambigu, dan akhirnya memeriksa validitas hasil kata.
+- Adinda Praditya & [Indonesian Stemmer](https://github.com/apraditya/indonesian_stemmer). Beliau sebagai mentor dan berkat kodenya maka library ini bisa diimplementasi ke dalam bahasa JavaScript.
 
 

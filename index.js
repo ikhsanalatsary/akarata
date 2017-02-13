@@ -1,24 +1,25 @@
 'use strict';
 
-import _ from 'lodash';
-import Morphological from './lib/morphological_utility.js';
-const totalSyllables = Morphological.totalSyllables;
-const removeParticle = Morphological.removeParticle;
-const removePossesive = Morphological.removePossesive;
-const removeFirstOrderPrefix = Morphological.removeFirstOrderPrefix;
-const removeSecondOrderPrefix = Morphological.removeSecondOrderPrefix;
-const removeSuffix = Morphological.removeSuffix;
+import {
+	totalSyllables,
+	removeParticle,
+	removePossesive,
+	removeFirstOrderPrefix,
+	removeSecondOrderPrefix,
+	removeSuffix,
+} from './lib/morphological_utility';
+
 const ShouldNotTransformTheseWords = ['lari', 'nikah', 'pilah', 'pakai', 'iman'];
 
-function stem (word, derivationalStemming = true) {
-	var numberSyllables = totalSyllables(word);
+function stem(word, derivationalStemming = true) {
+	let numberSyllables = totalSyllables(word);
 
 	if (numberSyllables > 2) {
-			word = removePossesive(word);
-			if (derivationalStemming) word = stemDerivational(word);
-		}
+		word = removePossesive(word);
+		if (derivationalStemming) word = stemDerivational(word);
+	}
 
-	if (numberSyllables > 2 && !_.includes(ShouldNotTransformTheseWords, word)) {
+	if (numberSyllables > 2 && !ShouldNotTransformTheseWords.includes(word)) {
 		word = removeParticle(word);
 		if (numberSyllables > 2) word = removeParticle(word);
 		if (derivationalStemming) word = stemDerivational(word);
@@ -27,20 +28,20 @@ function stem (word, derivationalStemming = true) {
 	return word;
 }
 
-function stemDerivational (word) {
-	var numberSyllables = totalSyllables(word);
-	var previousLength = word.length;
+function stemDerivational(word) {
+	let numberSyllables = totalSyllables(word);
+	const previousLength = word.length;
 	if (numberSyllables > 2) word = removeFirstOrderPrefix(word);
 
 	if (previousLength === word.length) {
 	  if (numberSyllables > 2) word = removeSecondOrderPrefix(word);
-		if (_.includes(ShouldNotTransformTheseWords, word)) numberSyllables -= 1;
+		if (ShouldNotTransformTheseWords.includes(word)) numberSyllables -= 1;
 		if (numberSyllables > 2) word = removeSuffix(word);
-		}
+	}
 
 	return word;
 }
 
 module.exports = {
-	stem
-}
+	stem,
+};

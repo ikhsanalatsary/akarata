@@ -1,5 +1,6 @@
 'use strict';
 
+import includes from 'array-includes';
 import {
 	totalSyllables,
 	removeParticle,
@@ -19,7 +20,7 @@ function stem(word, derivationalStemming = true) {
 		if (derivationalStemming) word = stemDerivational(word);
 	}
 
-	if (numberSyllables > 2 && !ShouldNotTransformTheseWords.includes(word)) {
+	if (numberSyllables > 2 && !includes(ShouldNotTransformTheseWords, word)) {
 		word = removeParticle(word);
 		if (numberSyllables > 2) word = removeParticle(word);
 		if (derivationalStemming) word = stemDerivational(word);
@@ -35,7 +36,7 @@ function stemDerivational(word) {
 
 	if (previousLength === word.length) {
 	  if (numberSyllables > 2) word = removeSecondOrderPrefix(word);
-		if (ShouldNotTransformTheseWords.includes(word)) numberSyllables -= 1;
+		if (includes(ShouldNotTransformTheseWords, word)) numberSyllables -= 1;
 		if (numberSyllables > 2) word = removeSuffix(word);
 	}
 

@@ -1,25 +1,25 @@
 ---
 engines:
-  duplication:
-    enabled: true
-    config:
-      languages:
-      - ruby
-      - javascript
-      - python
-      - php
-  eslint:
-    enabled: true
   checks:
     comma-dangle:
       enabled: false
+  duplication:
+    config:
+      languages:
+        - ruby
+        - javascript
+        - python
+        - php
+    enabled: true
+  eslint:
+    enabled: true
   fixme:
     enabled: true
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
+    - "**.inc"
+    - "**.js"
+    - "**.jsx"
+    - "**.module"
+    - "**.php"
+    - "**.py"

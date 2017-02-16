@@ -22,3 +22,5 @@ ratings:
   - "**.module"
   - "**.php"
   - "**.py"
+exclude_paths:
+- test/*

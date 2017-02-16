@@ -8,7 +8,7 @@ const ShouldNotTransform = Helper.ShouldNotTransform;
 
 describe("Stemmer", () => {
 	it("should available", () => {
-		expect(Stemmer).to.be.not.null;
+		expect(Stemmer).to.exist;
 	});
 
 	describe("Total Syllables", () => {
@@ -117,12 +117,12 @@ describe("Stemmer", () => {
 
 				describe("followed by consonant, should only remove the special characters", () => {
 					it("'meny'", () => {
-						// TODO: Find a real indonesian word for this case
+						// Find a real indonesian word for this case
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'menyxxx', 'xxx');
 					});
 
 					it("'peny'", () => {
-						// TODO: Find a real indonesian word for this case
+						// Find a real indonesian word for this case
 						ShouldTransform(Stemmer.removeFirstOrderPrefix, 'penyxxx', 'xxx');
 					});
 

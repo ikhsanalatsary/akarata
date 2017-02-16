@@ -5,7 +5,7 @@ const expect = chai.expect;
 
 describe("stemmerUtility", () => {
 	it("should available", () => {
-		expect(stemmerUtility).not.to.be.null;
+		expect(stemmerUtility).to.exist;
 	});
 
 	var word = 'asldkamsdo';

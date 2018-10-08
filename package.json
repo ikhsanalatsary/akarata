@@ -11,11 +11,6 @@
     "node": ">=8.5"
   },
   "scripts": {
-    "build:old": "rm -rf dist && babel ./**/*.js ./*.js --out-dir dist",
-    "prepublish": "npm run build",
-    "test:old": "mocha -w --compilers js:babel-register",
-    "test:single": "babel-node node_modules/.bin/istanbul cover _mocha",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "cleanup": "shx rm -rf dist",
     "prebuild": "npm run cleanup && npm run verify",
     "build": "tsc && tsc --target es2018 --outDir dist/esm2015 && rollup -c config/rollup.config.js && rollup -c config/rollup.config.js --environment NODE_ENV:production",

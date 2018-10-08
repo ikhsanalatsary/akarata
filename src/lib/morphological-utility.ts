@@ -1,12 +1,12 @@
-import camelCase from 'lodash.camelcase';
-import includes from 'lodash.includes';
-import StemmerUtility from './stemmer-utility';
+import camelCase from 'lodash.camelcase'
+import includes from 'lodash.includes'
+import StemmerUtility from './stemmer-utility'
 
-type Characters = string[];
+type Characters = string[]
 
-const VOWEL = ['a', 'e', 'i', 'o', 'u'];
-const PARTICLE_CHARACTERS = ['kah', 'lah', 'pun'];
-const POSSESIVE_PRONOUN_CHARACTERS = ['ku', 'mu', 'nya'];
+const VOWEL = ['a', 'e', 'i', 'o', 'u']
+const PARTICLE_CHARACTERS = ['kah', 'lah', 'pun']
+const POSSESIVE_PRONOUN_CHARACTERS = ['ku', 'mu', 'nya']
 const FIRST_ORDER_PREFIX_CHARACTERS = [
   'meng',
   'meny',
@@ -19,21 +19,21 @@ const FIRST_ORDER_PREFIX_CHARACTERS = [
   'pem',
   'di',
   'ter',
-  'ke'
-];
+  'ke',
+]
 const SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS = [
   'meny',
   'peny',
   'pen',
   'men',
   'mem',
-  'pem'
-];
-const SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'be', 'per', 'pe'];
-const SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['be'];
-const NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'per', 'pe'];
-const SPECIAL_SECOND_ORDER_PREFIX_WORDS = ['belajar', 'pelajar', 'belunjur'];
-const SUFFIX_CHARACTERS = ['kan', 'an', 'i'];
+  'pem',
+]
+const SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'be', 'per', 'pe']
+const SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['be']
+const NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'per', 'pe']
+const SPECIAL_SECOND_ORDER_PREFIX_WORDS = ['belajar', 'pelajar', 'belunjur']
+const SUFFIX_CHARACTERS = ['kan', 'an', 'i']
 const AMBIGUOUS_WORDS = [
   'nyanyi',
   'nyala',
@@ -41,80 +41,80 @@ const AMBIGUOUS_WORDS = [
   'nasehat',
   'makan',
   'minum',
-  'nikah'
-];
+  'nikah',
+]
 
 export function totalSyllables(word: string) {
-  let result = 0;
+  let result = 0
 
   for (const value of word) {
-    if (isVowel(value)) result++;
+    if (isVowel(value)) result++
   }
 
-  return result;
+  return result
 }
 
 export function removeFirstOrderPrefix(word: string) {
-  let numberOfSyllables = totalSyllables(word);
-  const wordLength = word.length;
+  let numberOfSyllables = totalSyllables(word)
+  const wordLength = word.length
 
-  SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS.forEach(char => {
-    const charLength = char.length;
+  SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS.forEach((char) => {
+    const charLength = char.length
     if (
       StemmerUtility.isStartsWith(word, wordLength, char) &&
       wordLength > charLength &&
       isVowel(word[charLength])
     ) {
-      numberOfSyllables -= 1;
-      word = substituteChar(AMBIGUOUS_WORDS, char, word);
+      numberOfSyllables -= 1
+      word = substituteChar(AMBIGUOUS_WORDS, char, word)
     }
-  });
+  })
 
   if (word === 'memakan' || word === 'meminum') {
-    word = sliceWordWithPosition(word, 2, 'start');
+    word = sliceWordWithPosition(word, 2, 'start')
   }
 
-  word = removeMatchingCollection(word, FIRST_ORDER_PREFIX_CHARACTERS, 'start');
+  word = removeMatchingCollection(word, FIRST_ORDER_PREFIX_CHARACTERS, 'start')
 
-  return word;
+  return word
 }
 
 export function removeSecondOrderPrefix(word: string) {
-  let numberOfSyllables = totalSyllables(word);
-  const wordLength = word.length;
+  let numberOfSyllables = totalSyllables(word)
+  const wordLength = word.length
 
   if (includes(SPECIAL_SECOND_ORDER_PREFIX_WORDS, word)) {
-    numberOfSyllables -= 1;
+    numberOfSyllables -= 1
 
-    return sliceWordWithPosition(word, 3, 'start');
+    return sliceWordWithPosition(word, 3, 'start')
   } else if (
     StemmerUtility.isStartsWith(word, wordLength, 'be') &&
     wordLength > 4 &&
     !isVowel(word[2]) &&
     word.substring(3, 5) === 'er'
   ) {
-    numberOfSyllables -= 1;
+    numberOfSyllables -= 1
 
-    return sliceWordWithPosition(word, 2, 'start');
+    return sliceWordWithPosition(word, 2, 'start')
   } else {
     return removeMatchingCollection(
       word,
       NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS,
       'start'
-    );
+    )
   }
 }
 
 export function removeSuffix(word: string) {
-  return removeMatchingCollection(word, SUFFIX_CHARACTERS, 'end');
+  return removeMatchingCollection(word, SUFFIX_CHARACTERS, 'end')
 }
 
 export function removeParticle(word: string) {
-  return removeMatchingCollection(word, PARTICLE_CHARACTERS, 'end');
+  return removeMatchingCollection(word, PARTICLE_CHARACTERS, 'end')
 }
 
 export function removePossesive(word: string) {
-  return removeMatchingCollection(word, POSSESIVE_PRONOUN_CHARACTERS, 'end');
+  return removeMatchingCollection(word, POSSESIVE_PRONOUN_CHARACTERS, 'end')
 }
 
 function removeMatchingCollection(
@@ -122,26 +122,27 @@ function removeMatchingCollection(
   type: Characters,
   position: string
 ): string {
-  let numberOfSyllables = totalSyllables(word);
-  const Position = camelCase(`is ${position}s with`);
+  let numberOfSyllables = totalSyllables(word)
+  const Position = camelCase(`is ${position}s with`)
 
-  type.forEach(char => {
+  type.forEach((char) => {
+    // tslint:disable-next-line:no-unsafe-any
     if (StemmerUtility[Position](word, word.length, char)) {
-      numberOfSyllables -= 1;
+      numberOfSyllables -= 1
 
       if (position === 'end') {
-        word = word.slice(0, char.length * -1);
+        word = word.slice(0, char.length * -1)
       } else {
-        word = word.slice(char.length);
+        word = word.slice(char.length)
       }
     }
-  });
+  })
 
-  return word;
+  return word
 }
 
 function isVowel(character: string) {
-  return includes(VOWEL, character);
+  return includes(VOWEL, character)
 }
 
 function sliceWordWithPosition(
@@ -150,23 +151,23 @@ function sliceWordWithPosition(
   position: string
 ) {
   if (position === 'end') {
-    word = word.slice(0, charLength * -1);
+    word = word.slice(0, charLength * -1)
   } else {
-    word = word.slice(charLength);
+    word = word.slice(charLength)
   }
 
-  return word;
+  return word
 }
 
 function substituteChar(ambigousWords: Characters, char: string, word: string) {
-  const charLength = char.length;
-  let substituteCharacter;
+  const charLength = char.length
+  let substituteCharacter
 
-  switch (typeof word !== 'undefined') {
+  switch (word.length > 0) {
     case includes(['meny', 'peny'], char) &&
       !includes(ambigousWords, word.substring(2)):
-      substituteCharacter = 's';
-      break;
+      substituteCharacter = 's'
+      break
     case includes(['men', 'pen'], char):
       if (
         includes(ambigousWords, word.substring(2)) ||
@@ -175,28 +176,28 @@ function substituteChar(ambigousWords: Characters, char: string, word: string) {
           word.substring(word.length - 1)
         )
       ) {
-        substituteCharacter = 'n';
+        substituteCharacter = 'n'
       } else {
-        substituteCharacter = 't';
+        substituteCharacter = 't'
       }
-      break;
+      break
     case char === 'mem' && !includes(ambigousWords, word.substring(2)):
-      substituteCharacter = 'p';
-      break;
+      substituteCharacter = 'p'
+      break
     case char === 'pem':
-      substituteCharacter = 'p';
-      break;
+      substituteCharacter = 'p'
+      break
     case word.substring(2) === 'nyanyi' ||
       word.substring(2) === 'nyala' ||
       word.substring(2) === 'nyata':
-      substituteCharacter = 'ny';
-      break;
+      substituteCharacter = 'ny'
+      break
     default:
-      break;
+      break
   }
-  if (substituteCharacter) word = substituteCharacter + word.slice(charLength);
+  if (substituteCharacter) word = substituteCharacter + word.slice(charLength)
 
-  return word;
+  return word
 }
 
 // export {

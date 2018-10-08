@@ -67,7 +67,7 @@
     // tslint:tslint-config-standard overrides
     "no-unused-variable": false, // https://github.com/blakeembrey/tslint-config-standard/issues/51
     // tslint-etc rules
-    "no-unused-declaration": true,
+    "no-unused-declaration": false,
     // tslint-react rules
     "jsx-boolean-value": {
       "options": "never"

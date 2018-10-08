@@ -1,1 +1,1 @@
-export { stem } from './stemmer';
+export { stem } from './stemmer'

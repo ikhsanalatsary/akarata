@@ -13,10 +13,10 @@ function main() {
     resolve(projectRoot, 'README.md'),
     resolve(distPath, 'README.md')
   )
-  copyFileSync(
-    resolve(projectRoot, 'CHANGELOG.md'),
-    resolve(distPath, 'CHANGELOG.md')
-  )
+  // copyFileSync(
+  //   resolve(projectRoot, 'CHANGELOG.md'),
+  //   resolve(distPath, 'CHANGELOG.md')
+  // )
   copyFileSync(
     resolve(projectRoot, 'LICENSE.md'),
     resolve(distPath, 'LICENSE.md')

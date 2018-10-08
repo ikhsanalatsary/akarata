@@ -21,12 +21,7 @@
     "resolveJsonModule": true,
     "importHelpers": true
   },
-  "include": [
-    "./src",
-    "./src/stemmer.d.ts",
-    "./src/lib/morphological-utility.d.ts",
-    "./src/lib/stemmer-utility.d.ts"
-  ],
+  "include": ["./src"],
   "exclude": ["node_modules", "dist"],
   "compileOnSave": false,
   "buildOnSave": false

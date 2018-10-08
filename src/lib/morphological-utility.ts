@@ -44,7 +44,7 @@ const AMBIGUOUS_WORDS = [
   'nikah',
 ]
 
-export function totalSyllables(word: string) {
+function totalSyllables(word: string) {
   let result = 0
 
   for (const value of word) {
@@ -54,7 +54,7 @@ export function totalSyllables(word: string) {
   return result
 }
 
-export function removeFirstOrderPrefix(word: string) {
+function removeFirstOrderPrefix(word: string) {
   let numberOfSyllables = totalSyllables(word)
   const wordLength = word.length
 
@@ -79,7 +79,7 @@ export function removeFirstOrderPrefix(word: string) {
   return word
 }
 
-export function removeSecondOrderPrefix(word: string) {
+function removeSecondOrderPrefix(word: string) {
   let numberOfSyllables = totalSyllables(word)
   const wordLength = word.length
 
@@ -105,15 +105,15 @@ export function removeSecondOrderPrefix(word: string) {
   }
 }
 
-export function removeSuffix(word: string) {
+function removeSuffix(word: string) {
   return removeMatchingCollection(word, SUFFIX_CHARACTERS, 'end')
 }
 
-export function removeParticle(word: string) {
+function removeParticle(word: string) {
   return removeMatchingCollection(word, PARTICLE_CHARACTERS, 'end')
 }
 
-export function removePossesive(word: string) {
+function removePossesive(word: string) {
   return removeMatchingCollection(word, POSSESIVE_PRONOUN_CHARACTERS, 'end')
 }
 
@@ -200,11 +200,11 @@ function substituteChar(ambigousWords: Characters, char: string, word: string) {
   return word
 }
 
-// export {
-//   totalSyllables,
-//   removeParticle,
-//   removePossesive,
-//   removeFirstOrderPrefix,
-//   removeSecondOrderPrefix,
-//   removeSuffix
-// };
+export {
+  totalSyllables,
+  removeParticle,
+  removePossesive,
+  removeFirstOrderPrefix,
+  removeSecondOrderPrefix,
+  removeSuffix,
+}

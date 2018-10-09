@@ -5,11 +5,11 @@
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
 [![Depedencies Status](https://david-dm.org/ikhsanalatsary/akarata.svg)](https://david-dm.org/ikhsanalatsary/akarata)
 
-Akarata adalah pustaka JavaScript untuk mengambil akar kata/suku kata(stem) dari kata yang berimbuhan awal ataupun akhir pada bahasa Indonesia. Akarata diambil dari kata "akar kata", agar lebih pendek saat penyebutannya.
+Akarata is a JavaScript library to retrieve the root / syllable root (stem) from word stem that does have a prefix in front of the word or  suffix at the end of the word in Indonesian. Akarata is derived from the word "akar kata" in indonesian, for easier pronouncing.
 
-Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, dengan menggunakan algoritma yang dipaparkan dalam *paper* [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), oleh Fadillah Z Tala.
+Akarata inspired by stem of word in Indonesian based on Porter Stemmer, using algorithm published in *paper* [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), by Fadillah Z Tala. 
 
-## Instalasi
+## Installation
 
 npm:
 
@@ -19,7 +19,7 @@ yarn:
 
 	yarn add akarata
 
-## Penggunaan
+## Usage
 
 Babel:
 
@@ -27,10 +27,12 @@ Babel:
 	akarata.stem('menikah'); // nikah
 
 
-JavaScript Biasa:
+JavaScript:
 
 	var akarata = require('akarata');
 	akarata.stem('belajar'); // ajar
+
+Or you can directly try it on this web: [akarata.netlify.com](https://akarata.netlify.com).
 
 Atau mencobanya langsung dari web: [akarata.netlify.com](https://akarata.netlify.com).
 

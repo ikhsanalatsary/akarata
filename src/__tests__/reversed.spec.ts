@@ -5,7 +5,7 @@ const reversedLemas = JSON.parse(
   fs.readFileSync(`${__dirname}/reversed.json`, 'utf8')
 )
 
-describe('Reversed Lemas', () => {
+describe.skip('Reversed Lemas', () => {
   describe('test again reversed lemas from KBBI dictionary', () => {
     for (const i in reversedLemas) {
       if (reversedLemas.hasOwnProperty(i)) {

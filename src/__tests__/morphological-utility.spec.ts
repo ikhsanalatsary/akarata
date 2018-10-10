@@ -1,4 +1,3 @@
-import { Greeter } from '../greeter';
 import {
   removeFirstOrderPrefix,
   removeParticle,

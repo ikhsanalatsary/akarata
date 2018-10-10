@@ -1,6 +1,6 @@
 import camelCase from 'lodash.camelcase'
 import includes from 'lodash.includes'
-import StemmerUtility from './stemmer-utility'
+import StemmerUtility, { PositionType } from './stemmer-utility'
 
 type Characters = string[]
 
@@ -127,7 +127,9 @@ function removeMatchingCollection(
 
   type.forEach((char) => {
     // tslint:disable-next-line:no-unsafe-any
-    if (StemmerUtility[Position](word, word.length, char)) {
+    if (
+      StemmerUtility[Position as keyof PositionType](word, word.length, char)
+    ) {
       numberOfSyllables -= 1
 
       if (position === 'end') {

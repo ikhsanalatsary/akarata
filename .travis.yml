@@ -18,7 +18,6 @@ script:
   - yarn test
 after_success:
   - yarn build
-  - npm run semantic-release
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

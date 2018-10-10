@@ -1,0 +1,1 @@
+export { stem } from './stemmer'

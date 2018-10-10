@@ -1,26 +1,15 @@
-engines:
+version: "2"
+plugins:
+  tslint:
+    enabled: true
+    config: tslint.json
   duplication:
     enabled: true
     config:
       languages:
-      - ruby
-      - javascript
-      - python
-      - php
-  eslint:
-    enabled: true
-    checks:
-      comma-dangle:
-        enabled: false
+        - javascript
+        - typescript
   fixme:
     enabled: true
-ratings:
-  paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-exclude_paths:
-- test/*
+exclude_patterns:
+  - src/__tests__/*

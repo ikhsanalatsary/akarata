@@ -10,6 +10,7 @@ root = true
 # Change these settings to your own preference
 indent_style = space
 indent_size = 2
+max_line_length = 80
 
 # We recommend you to keep these unchanged
 end_of_line = lf
@@ -19,3 +20,9 @@ insert_final_newline = true
 
 [*.md]
 trim_trailing_whitespace = false
+
+[*.{js,ts}]
+quote_type = single
+curly_bracket_next_line = false
+spaces_around_brackets = inside
+indent_brace_style = BSD KNF

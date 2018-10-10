@@ -1,20 +1,23 @@
 sudo: false
 language: node_js
 cache:
+  - yarn
   directories:
     - node_modules
 notifications:
   email: false
 node_js:
-  - '4'
-before_install:
-  - npm i -g npm@^3.3.6
+  - "4"
+  - "6"
+  - "8"
+install:
+  - yarn
 before_script:
   - npm prune
 script:
-  - npm run test:single
+  - yarn test
 after_success:
-  - npm run semantic-release
+  - yarn build
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

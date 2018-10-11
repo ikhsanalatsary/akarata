@@ -17,10 +17,7 @@ function main() {
   //   resolve(projectRoot, 'CHANGELOG.md'),
   //   resolve(distPath, 'CHANGELOG.md')
   // )
-  copyFileSync(
-    resolve(projectRoot, 'LICENSE.md'),
-    resolve(distPath, 'LICENSE.md')
-  )
+  copyFileSync(resolve(projectRoot, 'LICENSE'), resolve(distPath, 'LICENSE'))
   copyFileSync(
     resolve(projectRoot, '.npmignore'),
     resolve(distPath, '.npmignore')

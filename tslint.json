@@ -15,11 +15,10 @@
     "interface-name": {
       "options": "never-prefix"
     },
-    "no-unsafe-any": true,
+    "no-unsafe-any": false,
     // core lint rules
     "ban": {
-      "options": [
-        {
+      "options": [{
           "name": "parseInt",
           "message": "use #type-coercion -> Number(val)"
         },

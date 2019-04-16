@@ -2,26 +2,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-const SPECIAL_LETTERS = ['K', 'P', 'N', 'R']
-SPECIAL_LETTERS.map((letter) => {
-  ;(IrregularWords as any)[`BEGINS_WITH_${letter}`] = IrregularWords.loadWords(
-    `${letter.toLowerCase()}.txt`,
-    true
-  )
-})
-
-// export default interface IrregularWords {
-//   [key: string]: any;
-// }
-
 export default class IrregularWords {
-  static ON_PREFIX_CHARACTERS = {
-    meng: (IrregularWords as any).BEGINS_WITH_K,
-    peng: (IrregularWords as any).BEGINS_WITH_K,
-    mem: (IrregularWords as any).BEGINS_WITH_P,
-    pem: (IrregularWords as any).BEGINS_WITH_P,
-  }
-
+  static SPECIAL_LETTERS = ['K', 'P', 'N', 'R']
   static ENDS_WITH_I = IrregularWords.loadWords('akhiran-i.txt')
 
   static ENDS_WITH_COMMON_CHARACTERS = {
@@ -33,8 +15,8 @@ export default class IrregularWords {
     nya: IrregularWords.loadWords('nya.txt'),
   }
 
-  static ENDS_WITH_SUFFIX_CHARACTERS = IrregularWords.ENDS_WITH_I.unshift(
-    'majikan'
+  static ENDS_WITH_SUFFIX_CHARACTERS = ['majikan'].concat(
+    IrregularWords.ENDS_WITH_I
   )
 
   static loadWords(filename: string, chopped = false) {
@@ -72,9 +54,17 @@ export default class IrregularWords {
   }
 }
 
-// (IrregularWords as any).ON_PREFIX_CHARACTERS = {
-//   meng: (IrregularWords as any).BEGINS_WITH_K,
-//   peng: (IrregularWords as any).BEGINS_WITH_K,
-//   mem: (IrregularWords as any).BEGINS_WITH_P,
-//   pem: (IrregularWords as any).BEGINS_WITH_P
-// };
+IrregularWords.SPECIAL_LETTERS.map((letter) => {
+  // console.log(letter);
+  ;(IrregularWords as any)[`BEGINS_WITH_${letter}`] = IrregularWords.loadWords(
+    `${letter.toLowerCase()}.txt`,
+    true
+  )
+})
+
+;(IrregularWords as any).ON_PREFIX_CHARACTERS = {
+  meng: (IrregularWords as any).BEGINS_WITH_K,
+  peng: (IrregularWords as any).BEGINS_WITH_K,
+  mem: (IrregularWords as any).BEGINS_WITH_P,
+  pem: (IrregularWords as any).BEGINS_WITH_P,
+}

@@ -15,8 +15,8 @@ const AMBIGUOUS_WORDS = [
 ]
 
 enum Position {
-  start = 'start',
-  end = 'end',
+  start = 'Start',
+  end = 'End',
 }
 export default class MorphologicalUtility {
   static VOWEL = ['a', 'e', 'i', 'o', 'u']
@@ -65,8 +65,9 @@ export default class MorphologicalUtility {
   static REMOVED_TER = 16
   static REMOVED_BER = 32
   static REMOVED_PE = 64
+
   numberOfSyllables = 0
-  _flags: any
+  private _flags: any
 
   set flags(v: any) {
     this._flags = v
@@ -130,11 +131,15 @@ export default class MorphologicalUtility {
   }
 
   removeSecondOrderPrefix = (word: string) => {
+    const {
+      REMOVED_BER,
+      SPECIAL_SECOND_ORDER_PREFIX_WORDS,
+    } = MorphologicalUtility
     this.numberOfSyllables = this.numberOfSyllables || this.totalSyllables(word)
     const wordLength = word.length
-    if (MorphologicalUtility.SPECIAL_SECOND_ORDER_PREFIX_WORDS.includes(word)) {
+    if (SPECIAL_SECOND_ORDER_PREFIX_WORDS.includes(word)) {
       if (word.slice(0, 2) === 'be') {
-        this.flags = this.flags || MorphologicalUtility.REMOVED_BER
+        this.flags = this.flags || REMOVED_BER
       }
       this.reduceSyllable()
       word = this.sliceWordAtPosition(word, 3, Position.start)
@@ -143,12 +148,12 @@ export default class MorphologicalUtility {
     }
 
     if (
-      StemmerUtility.isstartsWith(word, wordLength, 'be') &&
+      StemmerUtility.isStartsWith(word, wordLength, 'be') &&
       wordLength > 4 &&
       !this.isVowel(word[2]) &&
       word.slice(3, 5) === 'er'
     ) {
-      this.flags = this.flags || MorphologicalUtility.REMOVED_BER
+      this.flags = this.flags || REMOVED_BER
       this.reduceSyllable()
       word = this.sliceWordAtPosition(word, 2, Position.start)
 
@@ -171,17 +176,14 @@ export default class MorphologicalUtility {
       REMOVED_MENG,
       REMOVED_TER,
       REMOVED_BER,
+      SUFFIX_CHARACTERS,
     } = MorphologicalUtility
     if (this.ambiguousWithSufficesEndingWords(word)) return word
     this.numberOfSyllables = this.numberOfSyllables || this.totalSyllables(word)
     let constantToCheck: number[] = []
     // tslint:disable-next-line:prefer-for-of
-    for (
-      let index = 0;
-      index < MorphologicalUtility.SUFFIX_CHARACTERS.length;
-      index++
-    ) {
-      const character = MorphologicalUtility.SUFFIX_CHARACTERS[index]
+    for (let index = 0; index < SUFFIX_CHARACTERS.length; index++) {
+      const character = SUFFIX_CHARACTERS[index]
       switch (character) {
         case 'kan':
           constantToCheck = [REMOVED_KE, REMOVED_PENG, REMOVED_PE]
@@ -199,7 +201,7 @@ export default class MorphologicalUtility {
       }
 
       if (
-        StemmerUtility.isendsWith(word, word.length, character) &&
+        StemmerUtility.isEndsWith(word, word.length, character) &&
         // tslint:disable-next-line:no-bitwise
         constantToCheck.every((cons) => (this.flags & cons) === 0)
       ) {
@@ -436,7 +438,7 @@ export default class MorphologicalUtility {
           return false
         }
 
-        return StemmerUtility.isendsWith(word, word.length, ambiguousWord)
+        return StemmerUtility.isEndsWith(word, word.length, ambiguousWord)
       })
     }
   }
@@ -446,11 +448,11 @@ export default class MorphologicalUtility {
     collection: Characters
   ) {
     return collection.some((word) =>
-      StemmerUtility.isstartsWith(choppedWord, choppedWord.length, word)
+      StemmerUtility.isStartsWith(choppedWord, choppedWord.length, word)
     )
   }
 
   private reduceSyllable() {
-    this.numberOfSyllables -= -1
+    this.numberOfSyllables -= 1
   }
 }

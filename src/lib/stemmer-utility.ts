@@ -1,4 +1,4 @@
-function isstartsWith(
+function isStartsWith(
   text: string,
   byTextLength: number,
   prefix: string
@@ -12,7 +12,7 @@ function isstartsWith(
   return true
 }
 
-function isendsWith(
+function isEndsWith(
   text: string,
   byTextLength: number,
   suffix: string
@@ -29,11 +29,11 @@ function isendsWith(
 }
 
 export interface PositionType {
-  isstartsWith: string
-  isendsWith: string
+  isStartsWith: string
+  isEndsWith: string
 }
 
 export default {
-  isstartsWith,
-  isendsWith,
+  isStartsWith,
+  isEndsWith,
 }

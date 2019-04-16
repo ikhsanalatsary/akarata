@@ -61,7 +61,6 @@ IrregularWords.SPECIAL_LETTERS.map((letter) => {
     true
   )
 })
-
 ;(IrregularWords as any).ON_PREFIX_CHARACTERS = {
   meng: (IrregularWords as any).BEGINS_WITH_K,
   peng: (IrregularWords as any).BEGINS_WITH_K,

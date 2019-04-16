@@ -1,39 +1,9 @@
-import camelCase from 'lodash.camelcase'
-import includes from 'lodash.includes'
+// tslint:disable:no-any
+import IrregularWords from './irregular-words'
 import StemmerUtility, { PositionType } from './stemmer-utility'
 
 type Characters = string[]
 
-const VOWEL = ['a', 'e', 'i', 'o', 'u']
-const PARTICLE_CHARACTERS = ['kah', 'lah', 'pun']
-const POSSESIVE_PRONOUN_CHARACTERS = ['ku', 'mu', 'nya']
-const FIRST_ORDER_PREFIX_CHARACTERS = [
-  'meng',
-  'meny',
-  'men',
-  'mem',
-  'me',
-  'peng',
-  'peny',
-  'pen',
-  'pem',
-  'di',
-  'ter',
-  'ke',
-]
-const SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS = [
-  'meny',
-  'peny',
-  'pen',
-  'men',
-  'mem',
-  'pem',
-]
-const SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'be', 'per', 'pe']
-const SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['be']
-const NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'per', 'pe']
-const SPECIAL_SECOND_ORDER_PREFIX_WORDS = ['belajar', 'pelajar', 'belunjur']
-const SUFFIX_CHARACTERS = ['kan', 'an', 'i']
 const AMBIGUOUS_WORDS = [
   'nyanyi',
   'nyala',
@@ -44,169 +14,443 @@ const AMBIGUOUS_WORDS = [
   'nikah',
 ]
 
-function totalSyllables(word: string) {
-  let result = 0
+enum Position {
+  start = 'start',
+  end = 'end',
+}
+export default class MorphologicalUtility {
+  static VOWEL = ['a', 'e', 'i', 'o', 'u']
+  static PARTICLE_CHARACTERS = ['kah', 'lah', 'pun']
+  static POSSESSIVE_PRONOUN_CHARACTERS = ['ku', 'mu', 'nya']
+  static FIRST_ORDER_PREFIX_CHARACTERS = [
+    'meng',
+    'meny',
+    'men',
+    'mem',
+    'me',
+    'peng',
+    'peny',
+    'pen',
+    'pem',
+    'di',
+    'ter',
+    'ke',
+  ]
+  static SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS = [
+    'meng',
+    'peng',
+    'meny',
+    'peny',
+    'pen',
+    'men',
+    'mem',
+    'pem',
+  ]
+  static SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'be', 'per', 'pe']
+  static SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['be']
+  static NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'per', 'pe']
+  static SPECIAL_SECOND_ORDER_PREFIX_WORDS = ['belajar', 'pelajar', 'belunjur']
+  static SUFFIX_CHARACTERS = ['kan', 'an', 'i']
+  static WITH_VOWEL_SUBSTITUTION_PREFIX_CHARACTERS = [
+    'meny',
+    'peny',
+    'men',
+    'pen',
+  ]
 
-  for (const value of word) {
-    if (isVowel(value)) result++
+  static REMOVED_KE = 1
+  static REMOVED_PENG = 2
+  static REMOVED_DI = 4
+  static REMOVED_MENG = 8
+  static REMOVED_TER = 16
+  static REMOVED_BER = 32
+  static REMOVED_PE = 64
+  numberOfSyllables = 0
+  _flags: any
+
+  set flags(v: any) {
+    this._flags = v
   }
 
-  return result
-}
+  get flags() {
+    return this._flags
+  }
 
-function removeFirstOrderPrefix(word: string) {
-  let numberOfSyllables = totalSyllables(word)
-  const wordLength = word.length
+  totalSyllables = (word: string) => {
+    let result = 0
 
-  SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS.forEach((char) => {
-    const charLength = char.length
-    if (
-      StemmerUtility.isStartsWith(word, wordLength, char) &&
-      wordLength > charLength &&
-      isVowel(word[charLength])
-    ) {
-      numberOfSyllables -= 1
-      word = substituteChar(AMBIGUOUS_WORDS, char, word)
+    for (const value of word) {
+      if (this.isVowel(value)) result++
     }
-  })
 
-  if (word === 'memakan' || word === 'meminum') {
-    word = sliceWordWithPosition(word, 2, 'start')
+    return result
   }
 
-  word = removeMatchingCollection(word, FIRST_ORDER_PREFIX_CHARACTERS, 'start')
+  removeParticle = (word: string) => {
+    this.numberOfSyllables = this.numberOfSyllables || this.totalSyllables(word)
 
-  return word
-}
-
-function removeSecondOrderPrefix(word: string) {
-  let numberOfSyllables = totalSyllables(word)
-  const wordLength = word.length
-
-  if (includes(SPECIAL_SECOND_ORDER_PREFIX_WORDS, word)) {
-    numberOfSyllables -= 1
-
-    return sliceWordWithPosition(word, 3, 'start')
-  } else if (
-    StemmerUtility.isStartsWith(word, wordLength, 'be') &&
-    wordLength > 4 &&
-    !isVowel(word[2]) &&
-    word.substring(3, 5) === 'er'
-  ) {
-    numberOfSyllables -= 1
-
-    return sliceWordWithPosition(word, 2, 'start')
-  } else {
-    return removeMatchingCollection(
+    word = this.removeCharactersMatchingCollection(
       word,
-      NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS,
-      'start'
+      this.collectionFor('particle'),
+      Position.end
+    )
+
+    return word
+  }
+
+  removePossessivePronoun = (word: string) => {
+    this.numberOfSyllables = this.numberOfSyllables || this.totalSyllables(word)
+
+    return this.removeCharactersMatchingCollection(
+      word,
+      this.collectionFor('possessive_pronoun'),
+      Position.end
     )
   }
-}
 
-function removeSuffix(word: string) {
-  return removeMatchingCollection(word, SUFFIX_CHARACTERS, 'end')
-}
+  removeFirstOrderPrefix = (word: string) => {
+    this.numberOfSyllables = this.numberOfSyllables || this.totalSyllables(word)
+    const prevWord = word
+    word = this.removeAndSubstituteCharactersMatchingCollection(
+      word,
+      this.collectionFor('special_first_order_prefix'),
+      Position.start
+    )
+    if (prevWord !== word) {
+      return word
+    }
 
-function removeParticle(word: string) {
-  return removeMatchingCollection(word, PARTICLE_CHARACTERS, 'end')
-}
+    word = this.removeCharactersMatchingCollection(
+      word,
+      this.collectionFor('first_order_prefix'),
+      Position.start
+    )
 
-function removePossesive(word: string) {
-  return removeMatchingCollection(word, POSSESIVE_PRONOUN_CHARACTERS, 'end')
-}
+    return word
+  }
 
-function removeMatchingCollection(
-  word: string,
-  type: Characters,
-  position: string
-): string {
-  let numberOfSyllables = totalSyllables(word)
-  const Position = camelCase(`is ${position}s with`)
+  removeSecondOrderPrefix = (word: string) => {
+    this.numberOfSyllables = this.numberOfSyllables || this.totalSyllables(word)
+    const wordLength = word.length
+    if (MorphologicalUtility.SPECIAL_SECOND_ORDER_PREFIX_WORDS.includes(word)) {
+      if (word.slice(0, 2) === 'be') {
+        this.flags = this.flags || MorphologicalUtility.REMOVED_BER
+      }
+      this.reduceSyllable()
+      word = this.sliceWordAtPosition(word, 3, Position.start)
 
-  type.forEach((char) => {
-    // tslint:disable-next-line:no-unsafe-any
+      return word
+    }
+
     if (
-      StemmerUtility[Position as keyof PositionType](word, word.length, char)
+      StemmerUtility.isstartsWith(word, wordLength, 'be') &&
+      wordLength > 4 &&
+      !this.isVowel(word[2]) &&
+      word.slice(3, 5) === 'er'
     ) {
-      numberOfSyllables -= 1
+      this.flags = this.flags || MorphologicalUtility.REMOVED_BER
+      this.reduceSyllable()
+      word = this.sliceWordAtPosition(word, 2, Position.start)
 
-      if (position === 'end') {
-        word = word.slice(0, char.length * -1)
-      } else {
-        word = word.slice(char.length)
+      return word
+    }
+
+    return this.removeCharactersMatchingCollection(
+      word,
+      this.collectionFor('non_special_second_order_prefix'),
+      Position.start
+    )
+  }
+
+  removeSuffix = (word: string) => {
+    const {
+      REMOVED_KE,
+      REMOVED_PENG,
+      REMOVED_PE,
+      REMOVED_DI,
+      REMOVED_MENG,
+      REMOVED_TER,
+      REMOVED_BER,
+    } = MorphologicalUtility
+    if (this.ambiguousWithSufficesEndingWords(word)) return word
+    this.numberOfSyllables = this.numberOfSyllables || this.totalSyllables(word)
+    let constantToCheck: number[] = []
+    // tslint:disable-next-line:prefer-for-of
+    for (
+      let index = 0;
+      index < MorphologicalUtility.SUFFIX_CHARACTERS.length;
+      index++
+    ) {
+      const character = MorphologicalUtility.SUFFIX_CHARACTERS[index]
+      switch (character) {
+        case 'kan':
+          constantToCheck = [REMOVED_KE, REMOVED_PENG, REMOVED_PE]
+          break
+        case 'an':
+          constantToCheck = [REMOVED_DI, REMOVED_MENG, REMOVED_TER]
+          break
+
+        case 'i':
+          constantToCheck = [REMOVED_BER, REMOVED_KE, REMOVED_PENG]
+          break
+
+        default:
+          break
+      }
+
+      if (
+        StemmerUtility.isendsWith(word, word.length, character) &&
+        // tslint:disable-next-line:no-bitwise
+        constantToCheck.every((cons) => (this.flags & cons) === 0)
+      ) {
+        this.reduceSyllable()
+        word = this.sliceWordAtPosition(word, character.length, Position.end)
       }
     }
-  })
 
-  return word
-}
-
-function isVowel(character: string) {
-  return includes(VOWEL, character)
-}
-
-function sliceWordWithPosition(
-  word: string,
-  charLength: number,
-  position: string
-) {
-  if (position === 'end') {
-    word = word.slice(0, charLength * -1)
-  } else {
-    word = word.slice(charLength)
+    return word
   }
 
-  return word
-}
+  private ambiguousWithSufficesEndingWords(word: string) {
+    return IrregularWords.ENDS_WITH_SUFFIX_CHARACTERS.includes(word)
+  }
 
-function substituteChar(ambigousWords: Characters, char: string, word: string) {
-  const charLength = char.length
-  let substituteCharacter
-
-  switch (word.length > 0) {
-    case includes(['meny', 'peny'], char) &&
-      !includes(ambigousWords, word.substring(2)):
-      substituteCharacter = 's'
-      break
-    case includes(['men', 'pen'], char):
+  private removeCharactersMatchingCollection(
+    word: string,
+    collection: Characters,
+    position: string
+  ) {
+    // tslint:disable-next-line:prefer-for-of
+    for (let index = 0; index < collection.length; index++) {
+      const characters = collection[index]
       if (
-        includes(ambigousWords, word.substring(2)) ||
-        includes(
-          ['kah', 'lah', 'ku', 'mu', 'nya', 'kan', 'an', 'i'],
-          word.substring(word.length - 1)
+        this.matchPositionAndNotAmbiguousWithCharacters(
+          word,
+          characters,
+          position
         )
       ) {
-        substituteCharacter = 'n'
-      } else {
-        substituteCharacter = 't'
+        if (characters === 'mem' && this.isVowel(word[characters.length])) {
+          continue
+        }
+        this.flags = this.flags || this.collectionFor(characters, 'removed')
+        this.reduceSyllable()
+
+        word = this.sliceWordAtPosition(word, characters.length, position)
       }
-      break
-    case char === 'mem' && !includes(ambigousWords, word.substring(2)):
-      substituteCharacter = 'p'
-      break
-    case char === 'pem':
-      substituteCharacter = 'p'
-      break
-    case word.substring(2) === 'nyanyi' ||
-      word.substring(2) === 'nyala' ||
-      word.substring(2) === 'nyata':
-      substituteCharacter = 'ny'
-      break
-    default:
-      break
+    }
+
+    return word
   }
-  if (substituteCharacter) word = substituteCharacter + word.slice(charLength)
 
-  return word
-}
+  private sliceWordAtPosition(
+    word: string,
+    characterSize: number,
+    position: string
+  ) {
+    const multiplier = position === Position.start ? 0 : -1
 
-export {
-  totalSyllables,
-  removeParticle,
-  removePossesive,
-  removeFirstOrderPrefix,
-  removeSecondOrderPrefix,
-  removeSuffix,
+    const wordSlice = word.split('')
+    wordSlice.splice(multiplier * characterSize, characterSize)
+    word = wordSlice.join('')
+
+    return word
+  }
+
+  private removeAndSubstituteCharactersMatchingCollection(
+    word: string,
+    collection: Characters,
+    position: string
+  ) {
+    // tslint:disable-next-line:prefer-for-of
+    for (let index = 0; index < collection.length; index++) {
+      const characters = collection[index]
+      const matched = this.matchingCharactersRequiresSubstitution(
+        word,
+        characters,
+        position
+      )
+      if (matched) {
+        this.flags = this.flags || this.collectionFor(characters, 'removed')
+        this.reduceSyllable()
+        word = this.substituteWordCharacter(word, characters)
+        word = this.sliceWordAtPosition(
+          word,
+          characters.length - 1,
+          Position.start
+        )
+      }
+    }
+
+    return word
+  }
+
+  private matchingCharactersRequiresSubstitution(
+    word: string,
+    characters: string,
+    position: string
+  ) {
+    return (
+      this.matchCharactersPositionFollowedByVowel(word, characters, position) &&
+      this.substitutionRequired(word, characters)
+    )
+  }
+
+  private matchCharactersPositionFollowedByVowel(
+    word: string,
+    characters: string,
+    position: string
+  ) {
+    const wordLength = word.length
+    const characterSize = characters.length
+    const Pos = `is${position}sWith`
+
+    return (
+      StemmerUtility[Pos as keyof PositionType](word, wordLength, characters) &&
+      wordLength > characterSize &&
+      this.isVowel(word[characterSize])
+    )
+  }
+
+  private substitutionRequired(word: string, characters: string) {
+    return (
+      MorphologicalUtility.WITH_VOWEL_SUBSTITUTION_PREFIX_CHARACTERS.includes(
+        characters
+      ) || this.containsIrregularPrefix(word, characters)
+    )
+  }
+
+  private containsIrregularPrefix(word: string, characters: string) {
+    const irregularOnPrefix = Object.keys(
+      IrregularWords.ON_PREFIX_CHARACTERS
+    ).includes(characters)
+    if (irregularOnPrefix) {
+      return this.choppedWordMatchWordsCollection(
+        word.slice(characters.length, word.length),
+        (IrregularWords.ON_PREFIX_CHARACTERS as any)[characters]
+      )
+    }
+
+    return false
+  }
+
+  private substituteWordCharacter(word: string, characters: string) {
+    let substituteChar = ''
+    switch (true) {
+      case ['meny', 'peny'].includes(characters):
+        substituteChar = 's'
+        break
+      case ['men', 'pen'].includes(characters):
+        substituteChar = this.choppedWordMatchWordsCollection(
+          word.slice(characters.length, word.length),
+          (IrregularWords as any).BEGINS_WITH_N
+        )
+          ? 'n'
+          : 't'
+        break
+      case ['meng', 'peng'].includes(characters):
+        substituteChar = 'k'
+        break
+      case ['mem', 'pem'].includes(characters):
+        substituteChar = 'p'
+        break
+
+      default:
+        break
+    }
+    const reduceChars = characters.length - 1
+    const firstChar = word.slice(-word.length, reduceChars)
+    const oldSubstituteChar = word[reduceChars]
+    const resChar = word.slice(characters.length)
+
+    return substituteChar ? firstChar + substituteChar + resChar : word
+  }
+
+  private isVowel(character: string) {
+    return MorphologicalUtility.VOWEL.includes(character)
+  }
+
+  private collectionFor(name: string, type = 'characters') {
+    let constantName
+    const col1 = ['meny', 'men', 'mem', 'me']
+    const col2 = ['peny', 'pen', 'pe']
+    if (type === 'characters') {
+      constantName = `${name}_${type}`
+    } else {
+      switch (true) {
+        case col1.includes(name):
+          name = 'meng'
+          break
+        case col2.includes(name):
+          name = 'peng'
+          break
+
+        default:
+          break
+      }
+      constantName = `${type}_${name}`
+    }
+    const staticMethod = constantName.toUpperCase()
+
+    const collection: Characters = (MorphologicalUtility as any)[staticMethod]
+
+    return collection
+  }
+
+  private matchPositionAndNotAmbiguousWithCharacters(
+    word: string,
+    characters: string,
+    position: string
+  ) {
+    const pos = `is${position}sWith`
+
+    return (
+      StemmerUtility[pos as keyof PositionType](
+        word,
+        word.length,
+        characters
+      ) && !this.ambiguousWithCharacters(word, characters, position)
+    )
+  }
+
+  private ambiguousWithCharacters(
+    word: string,
+    characters: string,
+    position: string
+  ) {
+    if (position === Position.start) {
+      if (characters === 'per') {
+        return this.choppedWordMatchWordsCollection(
+          word.slice(3, word.length),
+          (IrregularWords as any).BEGINS_WITH_R
+        )
+      } else {
+        return false
+      }
+    } else {
+      return (IrregularWords.ENDS_WITH_COMMON_CHARACTERS as any)[
+        characters
+      ].some((ambiguousWord: string) => {
+        const prefix = ['me', 'be', 'pe']
+        if (!prefix.includes(word.slice(0, 2))) {
+          return false
+        }
+
+        return StemmerUtility.isendsWith(word, word.length, ambiguousWord)
+      })
+    }
+  }
+
+  private choppedWordMatchWordsCollection(
+    choppedWord: string,
+    collection: Characters
+  ) {
+    return collection.some((word) =>
+      StemmerUtility.isstartsWith(choppedWord, choppedWord.length, word)
+    )
+  }
+
+  private reduceSyllable() {
+    this.numberOfSyllables -= -1
+  }
 }

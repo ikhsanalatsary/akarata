@@ -18,6 +18,7 @@ export default class IrregularWords {
   static ENDS_WITH_SUFFIX_CHARACTERS = ['majikan'].concat(
     IrregularWords.ENDS_WITH_I
   )
+  static ON_PREFIX_CHARACTERS: any
 
   static loadWords(filename: string, chopped = false) {
     const fd = fs.openSync(IrregularWords.absolutePath(filename), 'r')

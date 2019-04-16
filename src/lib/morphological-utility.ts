@@ -327,7 +327,7 @@ export default class MorphologicalUtility {
     if (irregularOnPrefix) {
       return this.choppedWordMatchWordsCollection(
         word.slice(characters.length, word.length),
-        (IrregularWords.ON_PREFIX_CHARACTERS as any)[characters]
+        IrregularWords.ON_PREFIX_CHARACTERS[characters]
       )
     }
 

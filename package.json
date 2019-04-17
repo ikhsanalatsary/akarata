@@ -92,8 +92,6 @@
     "@types/chokidar": "1.7.5",
     "@types/jest": "23.3.3",
     "@types/json5": "0.0.30",
-    "@types/lodash.camelcase": "4.3.4",
-    "@types/lodash.includes": "4.3.4",
     "@types/node": "10.11.4",
     "@types/prettier": "1.13.2",
     "@types/webpack-config-utils": "2.3.0",
@@ -131,8 +129,5 @@
     "typescript": "3.1.1",
     "webpack-config-utils": "2.3.1"
   },
-  "dependencies": {
-    "lodash.camelcase": "4.3.0",
-    "lodash.includes": "4.3.0"
-  }
+  "dependencies": {}
 }

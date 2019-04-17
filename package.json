@@ -37,7 +37,8 @@
     "release:preflight": "cd dist && npm pack",
     "size": "npm run size:umd && npm run size:fesm",
     "size:umd": "shx echo \"Gzipped+minified UMD bundle Size:\" && cross-var strip-json-comments --no-whitespace \"./dist/bundles/index.umd.min.js\" | gzip-size",
-    "size:fesm": "shx echo \"Gzipped+minified FESM bundle Size:\" && strip-json-comments --no-whitespace \"./dist/bundles/index.esm.min.js\" | gzip-size"
+    "size:fesm": "shx echo \"Gzipped+minified FESM bundle Size:\" && strip-json-comments --no-whitespace \"./dist/bundles/index.esm.min.js\" | gzip-size",
+    "generate:ts": "node scripts/generate.js"
   },
   "repository": {
     "type": "git",

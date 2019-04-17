@@ -375,7 +375,7 @@ export default class MorphologicalUtility {
   private collectionFor(name: string, type = 'characters') {
     let constantName
     const col1 = ['meny', 'men', 'mem', 'me']
-    const col2 = ['peny', 'pen', 'pe']
+    const col2 = ['peny', 'pen', 'pem']
     if (type === 'characters') {
       constantName = `${name}_${type}`
     } else {

@@ -66,7 +66,7 @@ export default class MorphologicalUtility {
   static REMOVED_BER = 32
   static REMOVED_PE = 64
 
-  private numberOfSyllables = 0
+  numberOfSyllables = 0
   private _flags: any
 
   set flags(v: any) {

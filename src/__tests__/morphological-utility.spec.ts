@@ -14,7 +14,7 @@ describe('Stemmer', () => {
   it('should available', () => {
     expect(removeFirstOrderPrefix).toBeDefined()
     expect(removeParticle).toBeDefined()
-    // expect(removePossesive).toBeDefined();
+    expect(removePossessivePronoun).toBeDefined()
     expect(removeSecondOrderPrefix).toBeDefined()
     expect(removeSuffix).toBeDefined()
     expect(totalSyllables).toBeDefined()
@@ -422,9 +422,6 @@ describe('Stemmer', () => {
   describe('Remove Second Order Prefix', () => {
     const { REMOVED_BER } = MorphologicalUtility
     describe('should handle these irregular words', () => {
-      // beforeEach(() => {
-      //   morphological.flags = undefined;
-      // });
       describe("'belajar'", () => {
         beforeAll(() => {
           morphological.flags = undefined
@@ -455,7 +452,7 @@ describe('Stemmer', () => {
         beforeAll(() => {
           morphological.flags = undefined
         })
-        // morphological.flags = undefined;
+
         it('should be handled correctly', () => {
           ShouldTransform(removeSecondOrderPrefix, 'pelajar', 'ajar')
         })

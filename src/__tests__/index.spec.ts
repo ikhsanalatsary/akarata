@@ -104,7 +104,7 @@ describe('Akarata', () => {
       ShouldStem(akarata.stem, 'diukur', 'ukur')
       ShouldStem(akarata.stem, 'dilihat', 'lihat')
       ShouldStem(akarata.stem, 'dilihat', 'lihat')
-      // ShouldStem(akarata.stem, 'direkomendasikan', 'rekomendasi');
+      // ShouldStem(akarata.stem, 'direkomendasikan', 'rekomendasi')
     })
 
     it("'ter'", () => {
@@ -170,6 +170,7 @@ describe('Akarata', () => {
         ShouldStem(akarata.stem, 'santai', 'santai')
         ShouldStem(akarata.stem, 'strategi', 'strategi')
         ShouldStem(akarata.stem, 'lokasi', 'lokasi')
+        ShouldStem(akarata.stem, 'rekomendasi', 'rekomendasi')
       })
     })
   })

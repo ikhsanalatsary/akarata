@@ -4,7 +4,10 @@ class Stemmer extends MorphologicalUtility {
   stem = (word: string, derivationalStemming = true) => {
     this.flags = undefined
     if (word.match(/\s/)) {
-      word.split(' ').map((w) => this.stem(w))
+      word = word
+        .split(/[,\n.\s+]+/)
+        .map((w) => this.stem(w.trim().toLowerCase()))
+        .join(', ')
     } else {
       this.numberOfSyllables = this.totalSyllables(word)
       if (this.isStillHasManySyllables()) {

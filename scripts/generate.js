@@ -3,14 +3,21 @@
 const fs = require('fs')
 const { resolve } = require('path')
 const { promisify } = require('util')
+const chalk = require('chalk')
 ;(async function() {
+  // @ts-ignore
+  console.log(
+    chalk.green(
+      'BEGIN - ',
+      chalk.magenta.underline.bold('generate file started')
+    )
+  )
   try {
     const projectRoot = resolve(__dirname, '..')
     const irregularDir = resolve(projectRoot, 'src/lib/irregular-words')
     const readdir = promisify(fs.readdir)
     const readfile = promisify(fs.readFile)
     const createfile = promisify(fs.writeFile)
-    console.log(irregularDir)
     const files = await readdir(irregularDir)
     const fileNames = files.map((file) => file.slice(0, -4))
     const fileContents = []
@@ -25,6 +32,13 @@ const { promisify } = require('util')
       const data = `export default ${JSON.stringify(contents)}`
       await createfile(resolve(irregularDir, `${fileName}.ts`), data)
     }
+    // @ts-ignore
+    console.log(
+      chalk.green(
+        'END - ',
+        chalk.blue.underline.bold('all files generated successfully')
+      )
+    )
   } catch (error) {
     console.error(error.message)
   }

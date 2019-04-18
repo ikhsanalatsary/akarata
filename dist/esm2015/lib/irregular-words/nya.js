@@ -1,2 +1,2 @@
-export default ['tanya'];
+export default ["tanya"];
 //# sourceMappingURL=nya.js.map

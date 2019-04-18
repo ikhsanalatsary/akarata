@@ -1,8 +1,9 @@
 // tslint:disable:no-any
+import * as mainFile from './irregular-words/main'
 
 export default class IrregularWords {
   static SPECIAL_LETTERS = ['K', 'P', 'N', 'R']
-  static ENDS_WITH_I = IrregularWords.loadWords('akhiran-i')
+  static ENDS_WITH_I = IrregularWords.loadWords('akhiranI')
 
   static ENDS_WITH_COMMON_CHARACTERS = {
     kah: IrregularWords.loadWords('kah'),
@@ -19,7 +20,7 @@ export default class IrregularWords {
   static ON_PREFIX_CHARACTERS: any
 
   static loadWords(filename: string, chopped = false) {
-    let contents: string[] = require(`./irregular-words/${filename}`).default
+    let contents: string[] = (mainFile as any)[filename]
 
     if (chopped) {
       contents = contents.map((word) => word.slice(1, word.length))

@@ -1,17 +1,18 @@
 // tslint:disable:no-any
+import * as mainFile from './irregular-words/main';
 var IrregularWords = /** @class */ (function () {
     function IrregularWords() {
     }
     IrregularWords.loadWords = function (filename, chopped) {
         if (chopped === void 0) { chopped = false; }
-        var contents = require("./irregular-words/" + filename).default;
+        var contents = mainFile[filename];
         if (chopped) {
             contents = contents.map(function (word) { return word.slice(1, word.length); });
         }
         return contents;
     };
     IrregularWords.SPECIAL_LETTERS = ['K', 'P', 'N', 'R'];
-    IrregularWords.ENDS_WITH_I = IrregularWords.loadWords('akhiran-i');
+    IrregularWords.ENDS_WITH_I = IrregularWords.loadWords('akhiranI');
     IrregularWords.ENDS_WITH_COMMON_CHARACTERS = {
         kah: IrregularWords.loadWords('kah'),
         lah: IrregularWords.loadWords('lah'),

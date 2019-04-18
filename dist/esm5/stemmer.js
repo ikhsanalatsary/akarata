@@ -8,7 +8,8 @@ var Stemmer = /** @class */ (function (_super) {
             if (derivationalStemming === void 0) { derivationalStemming = true; }
             _this.flags = undefined;
             if (word.match(/\s/)) {
-                word.split(' ').map(function (w) { return _this.stem(w); });
+                word = word.split(/[,\n.\s+]+/)
+                    .map(function (w) { return _this.stem(w.trim().toLowerCase()); }).join(', ');
             }
             else {
                 _this.numberOfSyllables = _this.totalSyllables(word);

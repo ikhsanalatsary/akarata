@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use strict'
 
 const fs = require('fs')
@@ -7,6 +8,7 @@ const chalk = require('chalk')
 ;(async function() {
   // @ts-ignore
   console.log(
+    // @ts-ignore
     chalk.green(
       'BEGIN - ',
       chalk.magenta.underline.bold('generate file started')

@@ -32,7 +32,6 @@
     "prerelease": "npm run build",
     "release": "standard-version",
     "postrelease": "node scripts/copy.js && npm run release:github && npm run release:npm",
-    "postinstall": "npm run build",
     "release:github": "git push --no-verify --follow-tags origin master",
     "release:npm": "cd dist && npm publish",
     "release:preflight": "cd dist && npm pack",

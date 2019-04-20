@@ -1,35 +1,66 @@
 # Akarata
 
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
-[![Depedencies Status](https://david-dm.org/ikhsanalatsary/akarata.svg)](https://david-dm.org/ikhsanalatsary/akarata)
+[![codecov](https://codecov.io/gh/ikhsanalatsary/akarata/branch/master/graph/badge.svg)](https://codecov.io/gh/ikhsanalatsary/akarata)
 
-[README English version](https://github.com/ikhsanalatsary/akarata/blob/master/README.en.md)
+[README English version](./README.en.md)
 
 Akarata adalah pustaka JavaScript untuk mengambil akar kata/suku kata(stem) dari kata yang berimbuhan awal ataupun akhir pada bahasa Indonesia. Akarata diambil dari kata "akar kata", agar lebih pendek saat penyebutannya.
 
 Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, dengan menggunakan algoritma yang dipaparkan dalam _paper_ [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), oleh Fadillah Z Tala.
 
+## Dibutuhkan
+Versi Node.js >= 8.5
+
 ## Instalasi
 
 npm:
 
-    npm install --save akarata
+    npm install --save tslib akarata
 
 yarn:
 
-    yarn add akarata
+    yarn add tslib akarata
 
 ## Penggunaan
 
+### Impor pustaka akarata
+
 ES2015+ / Babel / TypeScript:
 
+    // impor pustakanya
     import * as akarata from 'akarata';
-    akarata.stem('menikah'); // nikah
+    // or
+    import akarata from 'akarata';
 
-JavaScript / UMD / NodeJS:
+CommonJS/ UMD / NodeJS:
 
+    // impor pustakanya
     var akarata = require('akarata');
-    akarata.stem('belajar'); // ajar
+
+Michael Jackson script/ MJS / NodeJS `experimental-modules`:
+
+    // impor pustakanya
+    import * as akarata from 'akarata';
+    // or
+    import akarata from 'akarata';
+
+`unpkg.com`:
+
+    // sejak akarata versi > 0.1.5
+    // unpkg.com/:package@:version/:file
+    // sebagai contoh
+    import * as akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
+    // atau
+    import akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
+
+    // atau url absolut, secara implisit ke bundles/index.umd.js
+    import akarata from 'https://unpkg.com/akarata';
+
+### Kemudian bisa digunakan:
+
+    // panggil fungsi stem
+    akarata.stem('menikah'); // nikah
 
 Atau mencobanya langsung dari web: [akarata.netlify.com](https://akarata.netlify.com).
 

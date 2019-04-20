@@ -1,37 +1,66 @@
 # Akarata
 
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
-[![Depedencies Status](https://david-dm.org/ikhsanalatsary/akarata.svg)](https://david-dm.org/ikhsanalatsary/akarata)
+[![codecov](https://codecov.io/gh/ikhsanalatsary/akarata/branch/master/graph/badge.svg)](https://codecov.io/gh/ikhsanalatsary/akarata)
 
 Akarata is a JavaScript library to retrieve the root / syllable root (stem) from word stem that does have a prefix in front of the word or suffix at the end of the word in Indonesian. Akarata is derived from the word "akar kata" in indonesian, for easier pronouncing.
 
 Akarata inspired by stem of word in Indonesian based on Porter Stemmer, using algorithm published in _paper_ [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), by Fadillah Z Tala.
 
+## Requirement
+Node.js version >= 8.5
+
 ## Installation
 
 npm:
 
-    npm install --save akarata
+    npm install --save tslib akarata
 
 yarn:
 
-    yarn add akarata
+    yarn add tslib akarata
 
 ## Usage
 
+### Importing the library
+
 ES2015+ / Babel / TypeScript:
 
+    // import library
     import * as akarata from 'akarata';
+    // or
+    import akarata from 'akarata';
+
+CommonJS/ UMD / NodeJS:
+
+    // import library
+    var akarata = require('akarata');
+
+Michael Jackson script/ MJS / NodeJS `experimental-modules`:
+
+    // import library
+    import * as akarata from 'akarata';
+    // or
+    import akarata from 'akarata';
+
+`unpkg.com`:
+
+    // since akarata version > 0.1.5
+    // unpkg.com/:package@:version/:file
+    // for instance
+    import * as akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
+    // or
+    import akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
+
+    // or with absolute url, fallback to bundles/index.umd.js
+    import akarata from 'https://unpkg.com/akarata';
+
+### Then you can use it
+
+    // call the stem method
     akarata.stem('menikah'); // nikah
 
-JavaScript / UMD / NodeJS:
-
-    var akarata = require('akarata');
-    akarata.stem('belajar'); // ajar
-
 Or you can directly try it on this web: [akarata.netlify.com](https://akarata.netlify.com).
-
-Atau mencobanya langsung dari web: [akarata.netlify.com](https://akarata.netlify.com).
 
 ## Issues
 
@@ -60,4 +89,4 @@ First and foremost, I would like to thank to Allah Subhanahu Wa Ta'ala, that wit
 
 - Faidlah Z Tala & [Apache Lucene](http://lucene.apache.org/) as without them this module could not be made
 - [Kateglo Bahtera](http://kateglo.com/) for providing an API so this module could separate ambiguous words and validation.
-- Adinda Pradity & [Indonesian Stemmer](https://github.com/apraditya/indonesian_stemmer) for the great mentorship along with her project, this module could be implemented in JavaScript
+- Adinda Praditya & [Indonesian Stemmer](https://github.com/apraditya/indonesian_stemmer) for the great mentorship along with his project, this module could be implemented in JavaScript

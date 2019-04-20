@@ -1,23 +1,26 @@
-sudo: false
 language: node_js
 cache:
-  - yarn
+  yarn: true
   directories:
-    - node_modules
+  - node_modules
 notifications:
   email: false
+env:
+- CI=true
 node_js:
-  - "4"
-  - "6"
-  - "8"
+- '10'
+before_install:
+- npm config set scripts-prepend-node-path true
+- npm i -g yarn
 install:
-  - yarn
-before_script:
-  - npm prune
+- yarn
 script:
-  - yarn test
+  - if [ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ];
+    then yarn release;
+    else yarn test:ci;
+    fi
 after_success:
-  - yarn build
+- yarn report-coverage
 branches:
   except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+  - "/^v\\d+\\.\\d+\\.\\d+$/"

@@ -1,6 +1,4 @@
-import * as akarata from '../index'
-
-// PENDING
+import akarata from '../index'
 
 describe('Akarata', () => {
   describe('covering the inflectional particles', () => {
@@ -29,12 +27,16 @@ describe('Akarata', () => {
 
     it("'nya'", () => {
       ShouldStem(akarata.stem, 'cintanya', 'cinta')
+      // layan or pelayan?
+      ShouldStem(akarata.stem, 'pelayannya', 'layan')
     })
   })
 
   describe('covering the first order of derivational prefixes', () => {
     it("'meng'", () => {
       ShouldStem(akarata.stem, 'mengukur', 'ukur')
+      ShouldStem(akarata.stem, 'mengecewakan', 'kecewa')
+      ShouldStem(akarata.stem, 'mengatakan', 'kata')
     })
 
     it("'meny'", () => {
@@ -67,6 +69,8 @@ describe('Akarata', () => {
     it("'me'", () => {
       ShouldStem(akarata.stem, 'melayang', 'layang')
       ShouldStem(akarata.stem, 'merusak', 'rusak')
+      // ShouldStem(akarata.stem, 'memasak', 'masak');
+      // ShouldStem(akarata.stem, 'memandikan', 'mandi');
     })
 
     it("'peng'", () => {
@@ -93,11 +97,14 @@ describe('Akarata', () => {
     it("'pem'", () => {
       ShouldStem(akarata.stem, 'pembaca', 'baca')
       ShouldStem(akarata.stem, 'pembicara', 'bicara')
+      // ShouldStem(akarata.stem, 'pemilik', 'milik');
     })
 
     it("'di'", () => {
       ShouldStem(akarata.stem, 'diukur', 'ukur')
       ShouldStem(akarata.stem, 'dilihat', 'lihat')
+      ShouldStem(akarata.stem, 'dilihat', 'lihat')
+      // ShouldStem(akarata.stem, 'direkomendasikan', 'rekomendasi')
     })
 
     it("'ter'", () => {
@@ -116,6 +123,7 @@ describe('Akarata', () => {
   describe('covering the second order of derivational suffixes', () => {
     it("'ber'", () => {
       ShouldStem(akarata.stem, 'berlari', 'lari')
+      ShouldStem(akarata.stem, 'berganti', 'ganti')
     })
 
     it("'bel'", () => {
@@ -149,11 +157,21 @@ describe('Akarata', () => {
     it("'an'", () => {
       ShouldStem(akarata.stem, 'makanan', 'makan')
       ShouldStem(akarata.stem, 'sarapan', 'sarap')
+      ShouldStem(akarata.stem, 'kekinian', 'kini')
     })
 
-    it("'i'", () => {
-      ShouldStem(akarata.stem, 'ajari', 'ajar')
-      ShouldStem(akarata.stem, 'cermati', 'cermat')
+    describe("'i'", () => {
+      it('should stem correctly', () => {
+        ShouldStem(akarata.stem, 'ajari', 'ajar')
+        ShouldStem(akarata.stem, 'cermati', 'cermat')
+      })
+
+      it('should not stem these words', () => {
+        ShouldStem(akarata.stem, 'santai', 'santai')
+        ShouldStem(akarata.stem, 'strategi', 'strategi')
+        ShouldStem(akarata.stem, 'lokasi', 'lokasi')
+        ShouldStem(akarata.stem, 'rekomendasi', 'rekomendasi')
+      })
     })
   })
 })

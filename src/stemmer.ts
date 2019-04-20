@@ -1,44 +1,58 @@
-import includes from 'lodash.includes'
-import {
-  removeFirstOrderPrefix,
-  removeParticle,
-  removePossesive,
-  removeSecondOrderPrefix,
-  removeSuffix,
-  totalSyllables,
-} from './lib/morphological-utility'
+import MorphologicalUtility from './lib/morphological-utility'
 
-const ShouldNotTransformTheseWords = ['lari', 'nikah', 'pilah', 'pakai', 'iman']
+class Stemmer extends MorphologicalUtility {
+  stem = (word: string, derivationalStemming = true) => {
+    word = word.toLowerCase()
+    this.flags = undefined
+    if (word.match(/\s/)) {
+      word = word
+        .split(/[,\n.\s+]+/)
+        .map((w) => this.stem(w.trim()))
+        .join(', ')
+    } else {
+      this.numberOfSyllables = this.totalSyllables(word)
+      if (this.isStillHasManySyllables()) {
+        word = this.removeParticle(word)
+      }
+      if (this.isStillHasManySyllables()) {
+        word = this.removePossessivePronoun(word)
+      }
+      if (derivationalStemming) {
+        word = this.stemDerivational(word)
+      }
+    }
 
-function stem(word: string, derivationalStemming = true) {
-  const numberSyllables = totalSyllables(word)
-
-  if (numberSyllables > 2) {
-    word = removePossesive(word)
-    if (derivationalStemming) word = stemDerivational(word)
+    return word
   }
 
-  if (numberSyllables > 2 && !includes(ShouldNotTransformTheseWords, word)) {
-    word = removeParticle(word)
-    if (numberSyllables > 2) word = removeParticle(word)
-    if (derivationalStemming) word = stemDerivational(word)
+  private stemDerivational(word: string) {
+    let prevSize = word.length
+    if (this.isStillHasManySyllables()) {
+      word = this.removeFirstOrderPrefix(word)
+    }
+    if (prevSize !== word.length) {
+      prevSize = word.length
+      if (this.isStillHasManySyllables()) {
+        word = this.removeSuffix(word)
+      }
+      if (prevSize !== word.length) {
+        word = this.removeSecondOrderPrefix(word)
+      }
+    } else {
+      if (this.isStillHasManySyllables()) {
+        word = this.removeSecondOrderPrefix(word)
+      }
+      if (this.isStillHasManySyllables()) {
+        word = this.removeSuffix(word)
+      }
+    }
+
+    return word
   }
 
-  return word
+  private isStillHasManySyllables() {
+    return this.numberOfSyllables > 2
+  }
 }
 
-function stemDerivational(word: string) {
-  let numberSyllables = totalSyllables(word)
-  const previousLength = word.length
-  if (numberSyllables > 2) word = removeFirstOrderPrefix(word)
-
-  if (previousLength === word.length) {
-    if (numberSyllables > 2) word = removeSecondOrderPrefix(word)
-    if (includes(ShouldNotTransformTheseWords, word)) numberSyllables -= 1
-    if (numberSyllables > 2) word = removeSuffix(word)
-  }
-
-  return word
-}
-
-export { stem }
+export default new Stemmer()

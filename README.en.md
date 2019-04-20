@@ -1,7 +1,7 @@
 # Akarata
 
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
-[![Depedencies Status](https://david-dm.org/ikhsanalatsary/akarata.svg)](https://david-dm.org/ikhsanalatsary/akarata)
+[![codecov](https://codecov.io/gh/ikhsanalatsary/akarata/branch/master/graph/badge.svg)](https://codecov.io/gh/ikhsanalatsary/akarata)
 
 Akarata is a JavaScript library to retrieve the root / syllable root (stem) from word stem that does have a prefix in front of the word or suffix at the end of the word in Indonesian. Akarata is derived from the word "akar kata" in indonesian, for easier pronouncing.
 

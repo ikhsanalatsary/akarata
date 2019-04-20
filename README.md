@@ -1,7 +1,7 @@
 # Akarata
 
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
-[![Depedencies Status](https://david-dm.org/ikhsanalatsary/akarata.svg)](https://david-dm.org/ikhsanalatsary/akarata)
+[![codecov](https://codecov.io/gh/ikhsanalatsary/akarata/branch/master/graph/badge.svg)](https://codecov.io/gh/ikhsanalatsary/akarata)
 
 [README English version](./README.en.md)
 

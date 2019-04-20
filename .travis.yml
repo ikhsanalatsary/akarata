@@ -8,7 +8,6 @@ notifications:
 env:
   - CI=true
 node_js:
-  - "8"
   - "10"
 before_install:
   - npm config set scripts-prepend-node-path true
@@ -17,7 +16,7 @@ install:
   - yarn
 jobs:
   include:
-    - if: branch != master
+    - if: NOT branch = master
       script:
         - yarn test:ci
     - if: branch == master

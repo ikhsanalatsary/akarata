@@ -19,10 +19,12 @@ jobs:
   include:
     - if: branch != master
       script:
-        - yarn test
+        - yarn test:ci
     - if: branch == master
       script:
-        - yarn test:ci
+        - yarn release
+after_success:
+  - yarn report-coverage
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

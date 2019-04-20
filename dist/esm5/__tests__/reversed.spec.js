@@ -1,11 +1,6 @@
 /* tslint:disable:no-unsafe-any */
 import * as fs from 'fs';
 import akarata from '../index';
-// describe('passing', () => {
-//   test('hi there', () => {
-//     expect(true).toBe(true)
-//   })
-// })
 xdescribe('Reversed Lemas', function () {
     var reversedLemas = JSON.parse(fs.readFileSync(__dirname + "/reversed.json", 'utf8'));
     xdescribe('test again reversed lemas from KBBI dictionary', function () {

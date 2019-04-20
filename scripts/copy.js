@@ -1,10 +1,11 @@
 const { writeFileSync, copyFileSync } = require('fs')
 const { resolve } = require('path')
 const packageJson = require('../package.json')
+const toMjs = require('./toMJS')
 
 main()
 
-function main() {
+async function main() {
   const projectRoot = resolve(__dirname, '..')
   const distPath = resolve(projectRoot, 'dist')
   const distPackageJson = createDistPackageJson(packageJson)
@@ -23,6 +24,7 @@ function main() {
     resolve(distPath, '.npmignore')
   )
   writeFileSync(resolve(distPath, 'package.json'), distPackageJson)
+  await toMjs({ inputDir: 'dist/esm2015', outputDir: `dist/jsnext` })
 }
 
 /**

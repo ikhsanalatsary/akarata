@@ -10,5 +10,5 @@
     "noEmit": true,
     "importHelpers": false
   },
-  "include": ["."]
+  "include": [".", "../scripts/toMJS.js"]
 }

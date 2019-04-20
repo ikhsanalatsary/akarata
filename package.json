@@ -3,6 +3,7 @@
   "version": "0.1.5",
   "description": "Pustaka Javascript untuk memisahkan kata dari imbuhan awal ataupun akhir pada bahasa Indonesia",
   "main": "./bundles/index.umd.js",
+  "jsnext:main": "./jsnext/index.mjs",
   "module": "./esm5/index.js",
   "es2015": "./esm2015/index.js",
   "typings": "./types/index.d.ts",
@@ -11,6 +12,7 @@
     "node": ">=8.5"
   },
   "scripts": {
+    "createDir": "mkdir dist/jsnext && mkdir dist/jsnext/__tests__ && mkdir dist/jsnext/lib && mkdir dist/jsnext/lib/irregular-words",
     "cleanup": "shx rm -rf dist",
     "prebuild": "npm run cleanup && npm run verify",
     "build": "tsc && tsc --target es2018 --outDir dist/esm2015 && rollup -c config/rollup.config.js && rollup -c config/rollup.config.js --environment NODE_ENV:production",
@@ -99,6 +101,7 @@
     "awesome-typescript-loader": "5.2.1",
     "chalk": "2.4.2",
     "commitizen": "3.0.2",
+    "cp-file": "7.0.0",
     "cross-var": "1.1.0",
     "cz-conventional-changelog": "2.1.0",
     "gzip-size-cli": "3.0.0",
@@ -120,6 +123,7 @@
     "sort-object-keys": "1.1.2",
     "standard-version": "4.4.0",
     "strip-json-comments-cli": "1.0.1",
+    "tiny-glob": "0.2.6",
     "ts-jest": "23.10.4",
     "tslib": "1.9.3",
     "tslint": "5.11.0",
@@ -127,7 +131,7 @@
     "tslint-config-standard": "8.0.1",
     "tslint-etc": "1.2.6",
     "tslint-react": "3.6.0",
-    "typedoc": "0.12.0",
+    "typedoc": "0.13.0",
     "typescript": "3.1.1",
     "webpack-config-utils": "2.3.1"
   },

@@ -21,7 +21,7 @@
     "test": "jest -c ./config/jest.config.js",
     "test:watch": "npm t -- --watch",
     "test:coverage": "npm t -- --coverage",
-    "test:ci": "npm t -- --ci",
+    "test:ci": "npm t -- --ci --coverage",
     "validate-js": "tsc -p ./config && tsc -p ./scripts",
     "verify": "npm run validate-js && npm run style && npm run test:ci",
     "commit": "git-cz",
@@ -40,7 +40,8 @@
     "size": "npm run size:umd && npm run size:fesm",
     "size:umd": "shx echo \"Gzipped+minified UMD bundle Size:\" && cross-var strip-json-comments --no-whitespace \"./dist/bundles/index.umd.min.js\" | gzip-size",
     "size:fesm": "shx echo \"Gzipped+minified FESM bundle Size:\" && strip-json-comments --no-whitespace \"./dist/bundles/index.esm.min.js\" | gzip-size",
-    "generate:ts": "node scripts/generate.js"
+    "generate:ts": "node scripts/generate.js",
+    "report-coverage": "cat ./coverage/lcov.info | ./node_modules/.bin/codecov"
   },
   "repository": {
     "type": "git",
@@ -100,6 +101,7 @@
     "@types/webpack-config-utils": "2.3.0",
     "awesome-typescript-loader": "5.2.1",
     "chalk": "2.4.2",
+    "codecov": "3.3.0",
     "commitizen": "3.0.5",
     "cp-file": "7.0.0",
     "cross-var": "1.1.0",

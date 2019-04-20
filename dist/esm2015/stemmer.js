@@ -3,11 +3,12 @@ class Stemmer extends MorphologicalUtility {
     constructor() {
         super(...arguments);
         this.stem = (word, derivationalStemming = true) => {
+            word = word.toLowerCase();
             this.flags = undefined;
             if (word.match(/\s/)) {
                 word = word
                     .split(/[,\n.\s+]+/)
-                    .map((w) => this.stem(w.trim().toLowerCase()))
+                    .map((w) => this.stem(w.trim()))
                     .join(', ');
             }
             else {

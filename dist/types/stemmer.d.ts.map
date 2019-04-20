@@ -1,1 +1,1 @@
-{"version":3,"file":"stemmer.d.ts","sourceRoot":"","sources":["../../src/stemmer.ts"],"names":[],"mappings":"AAAA,OAAO,oBAAoB,MAAM,6BAA6B,CAAA;AAE9D,cAAM,OAAQ,SAAQ,oBAAoB;IACxC,IAAI,2DAqBH;IAED,OAAO,CAAC,gBAAgB;IAyBxB,OAAO,CAAC,uBAAuB;CAGhC;;AAED,wBAA4B"}
+{"version":3,"file":"stemmer.d.ts","sourceRoot":"","sources":["../../src/stemmer.ts"],"names":[],"mappings":"AAAA,OAAO,oBAAoB,MAAM,6BAA6B,CAAA;AAE9D,cAAM,OAAQ,SAAQ,oBAAoB;IACxC,IAAI,2DAsBH;IAED,OAAO,CAAC,gBAAgB;IAyBxB,OAAO,CAAC,uBAAuB;CAGhC;;AAED,wBAA4B"}

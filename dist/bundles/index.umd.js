@@ -5896,11 +5896,12 @@
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.stem = function (word, derivationalStemming) {
                 if (derivationalStemming === void 0) { derivationalStemming = true; }
+                word = word.toLowerCase();
                 _this.flags = undefined;
                 if (word.match(/\s/)) {
                     word = word
                         .split(/[,\n.\s+]+/)
-                        .map(function (w) { return _this.stem(w.trim().toLowerCase()); })
+                        .map(function (w) { return _this.stem(w.trim()); })
                         .join(', ');
                 }
                 else {

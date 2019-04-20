@@ -3,7 +3,7 @@
   "version": "0.1.5",
   "description": "Pustaka Javascript untuk memisahkan kata dari imbuhan awal ataupun akhir pada bahasa Indonesia",
   "main": "./bundles/index.umd.js",
-  "jsnext:main": "./jsnext/main.mjs",
+  "jsnext:main": "./jsnext/index.mjs",
   "module": "./esm5/index.js",
   "es2015": "./esm2015/index.js",
   "typings": "./types/index.d.ts",
@@ -33,7 +33,5 @@
   "peerDependencies": {
     "tslib": ">=1.9.0"
   },
-  "dependencies": {
-    "copy-mjs": "0.1.0"
-  }
+  "dependencies": {}
 }

@@ -21,15 +21,43 @@ yarn:
 
 ## Penggunaan
 
+### Impor pustaka akarata
+
 ES2015+ / Babel / TypeScript:
 
+    // impor pustakanya
     import * as akarata from 'akarata';
-    akarata.stem('menikah'); // nikah
+    // or
+    import akarata from 'akarata';
 
-JavaScript / UMD / NodeJS:
+CommonJS/ UMD / NodeJS:
 
+    // impor pustakanya
     var akarata = require('akarata');
-    akarata.stem('belajar'); // ajar
+
+Michael Jackson script/ MJS / NodeJS `experimental-modules`:
+
+    // impor pustakanya
+    import * as akarata from 'akarata';
+    // or
+    import akarata from 'akarata';
+
+`unpkg.com`:
+
+    // sejak akarata versi > 0.1.5
+    // unpkg.com/:package@:version/:file
+    // sebagai contoh
+    import * as akarata from 'https://unpkg.com/akarata@0.1.6/dist/bundles/index.esm.min.js';
+    // atau
+    import akarata from 'https://unpkg.com/akarata@0.1.6/dist/bundles/index.esm.min.js';
+
+    // atau url absolut, secara implisit ke bundles/index.umd.js
+    import akarata from 'https://unpkg.com/akarata';
+
+### Kemudian bisa digunakan:
+
+    // panggil fungsi stem
+    akarata.stem('menikah'); // nikah
 
 Atau mencobanya langsung dari web: [akarata.netlify.com](https://akarata.netlify.com).
 

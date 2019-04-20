@@ -17,15 +17,9 @@ install:
   - yarn
 jobs:
   include:
-    - # require the branch name to be master (note for PRs this is the base branch name)
-      if: branch = master
-      script:
-        - yarn test
     - if: branch != master
       script:
-        - yarn build
-after_success:
-  - yarn build
+        - yarn test
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

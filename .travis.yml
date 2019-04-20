@@ -2,28 +2,25 @@ language: node_js
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 notifications:
   email: false
 env:
-  - CI=true
+- CI=true
 node_js:
-  - "10"
+- '10'
 before_install:
-  - npm config set scripts-prepend-node-path true
-  - npm i -g yarn
+- npm config set scripts-prepend-node-path true
+- npm i -g yarn
 install:
-  - yarn
-jobs:
-  include:
-    - if: NOT branch = master
-      script:
-        - yarn test:ci
-    - if: branch == master
-      script:
-        - yarn release
+- yarn
+script:
+  - if [ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ];
+    then yarn release;
+    else yarn test:ci;
+    fi
 after_success:
-  - yarn report-coverage
+- yarn report-coverage
 branches:
   except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+  - "/^v\\d+\\.\\d+\\.\\d+$/"

@@ -7,15 +7,18 @@ Akarata is a JavaScript library to retrieve the root / syllable root (stem) from
 
 Akarata inspired by stem of word in Indonesian based on Porter Stemmer, using algorithm published in _paper_ [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), by Fadillah Z Tala.
 
+## Requirement
+Node.js version >= 8.5
+
 ## Installation
 
 npm:
 
-    npm install --save akarata
+    npm install --save tslib akarata
 
 yarn:
 
-    yarn add akarata
+    yarn add tslib akarata
 
 ## Usage
 

@@ -9,15 +9,18 @@ Akarata adalah pustaka JavaScript untuk mengambil akar kata/suku kata(stem) dari
 
 Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, dengan menggunakan algoritma yang dipaparkan dalam _paper_ [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), oleh Fadillah Z Tala.
 
+## Dibutuhkan
+Versi Node.js >= 8.5
+
 ## Instalasi
 
 npm:
 
-    npm install --save akarata
+    npm install --save tslib akarata
 
 yarn:
 
-    yarn add akarata
+    yarn add tslib akarata
 
 ## Penggunaan
 

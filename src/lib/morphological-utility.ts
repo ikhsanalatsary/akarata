@@ -1,6 +1,6 @@
 // tslint:disable:no-any
 import IrregularWords from './irregular-words'
-import StemmerUtility, { PositionType } from './stemmer-utility'
+import StemmerUtility, { PositionKeys } from './stemmer-utility'
 
 type Characters = string[]
 
@@ -308,7 +308,7 @@ export default class MorphologicalUtility {
     const Pos = `is${position}sWith`
 
     return (
-      StemmerUtility[Pos as keyof PositionType](word, wordLength, characters) &&
+      StemmerUtility[Pos as PositionKeys](word, wordLength, characters) &&
       wordLength > characterSize &&
       this.isVowel(word[characterSize])
     )
@@ -407,11 +407,8 @@ export default class MorphologicalUtility {
     const pos = `is${position}sWith`
 
     return (
-      StemmerUtility[pos as keyof PositionType](
-        word,
-        word.length,
-        characters
-      ) && !this.ambiguousWithCharacters(word, characters, position)
+      StemmerUtility[pos as PositionKeys](word, word.length, characters) &&
+      !this.ambiguousWithCharacters(word, characters, position)
     )
   }
 

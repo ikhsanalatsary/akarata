@@ -14,6 +14,10 @@ async function main() {
     resolve(projectRoot, 'README.md'),
     resolve(distPath, 'README.md')
   )
+  copyFileSync(
+    resolve(projectRoot, 'README.en.md'),
+    resolve(distPath, 'README.en.md')
+  )
   // copyFileSync(
   //   resolve(projectRoot, 'CHANGELOG.md'),
   //   resolve(distPath, 'CHANGELOG.md')

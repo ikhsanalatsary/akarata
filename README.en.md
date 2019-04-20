@@ -48,9 +48,9 @@ Michael Jackson script/ MJS / NodeJS `experimental-modules`:
     // since akarata version > 0.1.5
     // unpkg.com/:package@:version/:file
     // for instance
-    import * as akarata from 'https://unpkg.com/akarata@0.1.6/dist/bundles/index.esm.min.js';
+    import * as akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
     // or
-    import akarata from 'https://unpkg.com/akarata@0.1.6/dist/bundles/index.esm.min.js';
+    import akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
 
     // or with absolute url, fallback to bundles/index.umd.js
     import akarata from 'https://unpkg.com/akarata';

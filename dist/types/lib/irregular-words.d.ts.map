@@ -1,1 +1,0 @@
-{"version":3,"file":"irregular-words.d.ts","sourceRoot":"","sources":["../../../src/lib/irregular-words.ts"],"names":[],"mappings":"AAGA,MAAM,CAAC,OAAO,OAAO,cAAc;IACjC,MAAM,CAAC,eAAe,WAAuB;IAC7C,MAAM,CAAC,WAAW,WAAuC;IAEzD,MAAM,CAAC,2BAA2B;;;;;;;MAOjC;IAED,MAAM,CAAC,2BAA2B,WAEjC;IACD,MAAM,CAAC,oBAAoB,EAAE,GAAG,CAAA;IAEhC,MAAM,CAAC,SAAS,CAAC,QAAQ,EAAE,MAAM,EAAE,OAAO,UAAQ;CASnD"}

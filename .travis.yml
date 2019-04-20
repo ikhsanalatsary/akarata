@@ -5,17 +5,27 @@ cache:
     - node_modules
 notifications:
   email: false
+env:
+  - CI=true
 node_js:
-  - "4"
-  - "6"
   - "8"
+  - "9"
+  - "10"
+  - "11"
 before_install:
   - npm config set scripts-prepend-node-path true
   - npm i -g yarn
 install:
   - yarn
-script:
-  - yarn test
+jobs:
+  include:
+    - # require the branch name to be master (note for PRs this is the base branch name)
+      if: branch = master
+      script:
+        - yarn test
+    - if: branch != master
+      script:
+        - yarn build
 after_success:
   - yarn build
 branches:

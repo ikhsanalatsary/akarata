@@ -2,11 +2,12 @@ import MorphologicalUtility from './lib/morphological-utility'
 
 class Stemmer extends MorphologicalUtility {
   stem = (word: string, derivationalStemming = true) => {
+    word = word.toLowerCase()
     this.flags = undefined
     if (word.match(/\s/)) {
       word = word
         .split(/[,\n.\s+]+/)
-        .map((w) => this.stem(w.trim().toLowerCase()))
+        .map((w) => this.stem(w.trim()))
         .join(', ')
     } else {
       this.numberOfSyllables = this.totalSyllables(word)

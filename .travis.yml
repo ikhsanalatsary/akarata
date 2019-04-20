@@ -1,4 +1,3 @@
-sudo: false
 language: node_js
 cache:
   - yarn
@@ -10,10 +9,11 @@ node_js:
   - "4"
   - "6"
   - "8"
+before_install:
+  - npm config set scripts-prepend-node-path true
+  - npm i -g yarn
 install:
   - yarn
-before_script:
-  - npm prune
 script:
   - yarn test
 after_success:

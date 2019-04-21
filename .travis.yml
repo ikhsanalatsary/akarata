@@ -15,8 +15,8 @@ before_install:
 install:
 - yarn
 script:
-  - if [ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ];
-    then yarn release;
+  - if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]];
+    then yarn build;
     else yarn test:ci;
     fi
 after_success:

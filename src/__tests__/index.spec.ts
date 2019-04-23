@@ -50,6 +50,7 @@ describe('Akarata', () => {
 
     it("'me'", () => {
       ShouldStem(akarata.stem, 'menikah', 'nikah')
+      // ShouldStem(akarata.stem, 'memakan', 'makan')
     })
 
     describe("'mem' followed by 'p'", () => {
@@ -69,8 +70,8 @@ describe('Akarata', () => {
     it("'me'", () => {
       ShouldStem(akarata.stem, 'melayang', 'layang')
       ShouldStem(akarata.stem, 'merusak', 'rusak')
-      // ShouldStem(akarata.stem, 'memasak', 'masak');
-      // ShouldStem(akarata.stem, 'memandikan', 'mandi');
+      ShouldStem(akarata.stem, 'memasak', 'masak')
+      // ShouldStem(akarata.stem, 'memandikan', 'mandi')
     })
 
     it("'peng'", () => {
@@ -97,7 +98,7 @@ describe('Akarata', () => {
     it("'pem'", () => {
       ShouldStem(akarata.stem, 'pembaca', 'baca')
       ShouldStem(akarata.stem, 'pembicara', 'bicara')
-      // ShouldStem(akarata.stem, 'pemilik', 'milik');
+      // ShouldStem(akarata.stem, 'pemilik', 'milik')
     })
 
     it("'di'", () => {
@@ -180,6 +181,6 @@ type Fn = (word: string) => string
 
 function ShouldStem(methodName: Fn, word: string, transformWord: string) {
   const actual = methodName(word)
-  // methodName(word).should.equal(transformWord);
+  // methodName(word).should.equal(transformWord)
   expect(actual).toEqual(transformWord)
 }

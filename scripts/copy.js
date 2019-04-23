@@ -7,7 +7,9 @@ main()
 
 async function main() {
   const projectRoot = resolve(__dirname, '..')
+  const srcPath = resolve(projectRoot, 'src')
   const distPath = resolve(projectRoot, 'dist')
+  const typesPath = resolve(distPath, 'types')
   const distPackageJson = createDistPackageJson(packageJson)
 
   try {
@@ -29,6 +31,10 @@ async function main() {
     copyFileSync(
       resolve(projectRoot, 'CHANGELOG.md'),
       resolve(distPath, 'CHANGELOG.md')
+    )
+    copyFileSync(
+      resolve(srcPath, 'types.d.ts'),
+      resolve(typesPath, 'types.d.ts')
     )
   } catch (error) {
     console.error(error.message)

@@ -1,28 +1,22 @@
-// tslint:disable:no-any
-import IrregularWords from './irregular-words'
+import {
+  Characters,
+  CharsOrNum,
+  Flag,
+  Morphology,
+  MorphologyKeys,
+} from '../types'
+import IrregularWords, { CommonCharacters } from './irregular-words'
 import StemmerUtility, { PositionKeys } from './stemmer-utility'
-
-type Characters = string[]
-
-const AMBIGUOUS_WORDS = [
-  'nyanyi',
-  'nyala',
-  'nyata',
-  'nasehat',
-  'makan',
-  'minum',
-  'nikah',
-]
 
 enum Position {
   start = 'Start',
   end = 'End',
 }
-export default class MorphologicalUtility {
-  static VOWEL = ['a', 'e', 'i', 'o', 'u']
-  static PARTICLE_CHARACTERS = ['kah', 'lah', 'pun']
-  static POSSESSIVE_PRONOUN_CHARACTERS = ['ku', 'mu', 'nya']
-  static FIRST_ORDER_PREFIX_CHARACTERS = [
+export default class MorphologicalUtility implements Morphology {
+  static VOWEL: Characters = ['a', 'e', 'i', 'o', 'u']
+  static PARTICLE_CHARACTERS: Characters = ['kah', 'lah', 'pun']
+  static POSSESSIVE_PRONOUN_CHARACTERS: Characters = ['ku', 'mu', 'nya']
+  static FIRST_ORDER_PREFIX_CHARACTERS: Characters = [
     'meng',
     'meny',
     'men',
@@ -36,7 +30,7 @@ export default class MorphologicalUtility {
     'ter',
     'ke',
   ]
-  static SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS = [
+  static SPECIAL_FIRST_ORDER_PREFIX_CHARACTERS: Characters = [
     'meng',
     'peng',
     'meny',
@@ -46,30 +40,40 @@ export default class MorphologicalUtility {
     'mem',
     'pem',
   ]
-  static SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'be', 'per', 'pe']
-  static SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['be']
-  static NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS = ['ber', 'per', 'pe']
-  static SPECIAL_SECOND_ORDER_PREFIX_WORDS = ['belajar', 'pelajar', 'belunjur']
-  static SUFFIX_CHARACTERS = ['kan', 'an', 'i']
-  static WITH_VOWEL_SUBSTITUTION_PREFIX_CHARACTERS = [
+  static SECOND_ORDER_PREFIX_CHARACTERS: Characters = ['ber', 'be', 'per', 'pe']
+  static SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS: Characters = ['be']
+  static NON_SPECIAL_SECOND_ORDER_PREFIX_CHARACTERS: Characters = [
+    'ber',
+    'per',
+    'pe',
+  ]
+  static SPECIAL_SECOND_ORDER_PREFIX_WORDS: Characters = [
+    'belajar',
+    'pelajar',
+    'belunjur',
+  ]
+  static SUFFIX_CHARACTERS: Characters = ['kan', 'an', 'i']
+  static WITH_VOWEL_SUBSTITUTION_PREFIX_CHARACTERS: Characters = [
     'meny',
     'peny',
     'men',
     'pen',
   ]
 
-  static REMOVED_KE = 1
-  static REMOVED_PENG = 2
-  static REMOVED_DI = 4
-  static REMOVED_MENG = 8
-  static REMOVED_TER = 16
-  static REMOVED_BER = 32
-  static REMOVED_PE = 64
+  static REMOVED_KE = 1 as const
+  static REMOVED_PENG = 2 as const
+  static REMOVED_DI = 4 as const
+  static REMOVED_MENG = 8 as const
+  static REMOVED_TER = 16 as const
+  static REMOVED_BER = 32 as const
+  static REMOVED_PE = 64 as const
 
   numberOfSyllables = 0
-  private _flags: any
 
-  set flags(v: any) {
+  // actually type of number | undefined | Characters | null
+  private _flags: Flag
+
+  set flags(v: Flag) {
     this._flags = v
   }
 
@@ -195,15 +199,12 @@ export default class MorphologicalUtility {
         case 'i':
           constantToCheck = [REMOVED_BER, REMOVED_KE, REMOVED_PENG]
           break
-
-        default:
-          break
       }
 
       if (
         StemmerUtility.isEndsWith(word, word.length, character) &&
         // tslint:disable-next-line:no-bitwise
-        constantToCheck.every((cons) => (this.flags & cons) === 0)
+        constantToCheck.every((cons) => ((this.flags || 0) & cons) === 0)
       ) {
         this.reduceSyllable()
         word = this.sliceWordAtPosition(word, character.length, Position.end)
@@ -345,7 +346,7 @@ export default class MorphologicalUtility {
       case ['men', 'pen'].includes(characters):
         substituteChar = this.choppedWordMatchWordsCollection(
           word.slice(characters.length, word.length),
-          (IrregularWords as any).BEGINS_WITH_N
+          IrregularWords.BEGINS_WITH_N
         )
           ? 'n'
           : 't'
@@ -355,9 +356,6 @@ export default class MorphologicalUtility {
         break
       case ['mem', 'pem'].includes(characters):
         substituteChar = 'p'
-        break
-
-      default:
         break
     }
     const reduceChars = characters.length - 1
@@ -372,7 +370,10 @@ export default class MorphologicalUtility {
     return MorphologicalUtility.VOWEL.includes(character)
   }
 
-  private collectionFor(name: string, type = 'characters') {
+  private collectionFor(name: string): Characters
+  private collectionFor(name: string, type: 'removed'): number
+  private collectionFor(name: string, type?: string | undefined): CharsOrNum {
+    if (typeof type === 'undefined') type = 'characters'
     let constantName
     const col1 = ['meny', 'men', 'mem', 'me']
     const col2 = ['peny', 'pen', 'pem']
@@ -386,17 +387,12 @@ export default class MorphologicalUtility {
         case col2.includes(name):
           name = 'peng'
           break
-
-        default:
-          break
       }
       constantName = `${type}_${name}`
     }
     const staticMethod = constantName.toUpperCase()
 
-    const collection: Characters = (MorphologicalUtility as any)[staticMethod]
-
-    return collection
+    return MorphologicalUtility[staticMethod as MorphologyKeys]
   }
 
   private matchPositionAndNotAmbiguousWithCharacters(
@@ -421,15 +417,15 @@ export default class MorphologicalUtility {
       if (characters === 'per') {
         return this.choppedWordMatchWordsCollection(
           word.slice(3, word.length),
-          (IrregularWords as any).BEGINS_WITH_R
+          IrregularWords.BEGINS_WITH_R
         )
       } else {
         return false
       }
     } else {
-      return (IrregularWords.ENDS_WITH_COMMON_CHARACTERS as any)[
-        characters
-      ].some((ambiguousWord: string) => {
+      return IrregularWords.ENDS_WITH_COMMON_CHARACTERS[
+        characters as CommonCharacters
+      ].some((ambiguousWord) => {
         const prefix = ['me', 'be', 'pe']
         if (!prefix.includes(word.slice(0, 2))) {
           return false

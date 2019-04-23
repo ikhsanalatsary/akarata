@@ -55,7 +55,7 @@
     "file-name-casing": {
       "options": ["kebab-case"]
     },
-    "switch-default": true,
+    "switch-default": false,
     // tslint:recommended overrides
     "no-any": true,
     "member-access": {

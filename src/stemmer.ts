@@ -3,7 +3,7 @@ import MorphologicalUtility from './lib/morphological-utility'
 class Stemmer extends MorphologicalUtility {
   stem = (word: string, derivationalStemming = true) => {
     word = word.toLowerCase()
-    this.flags = undefined
+    this.flags = 0
     if (word.match(/\s/)) {
       word = word
         .split(/[,\n.\s+]+/)

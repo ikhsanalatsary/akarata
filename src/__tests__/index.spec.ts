@@ -175,6 +175,15 @@ describe('Akarata', () => {
       })
     })
   })
+
+  describe('Support multiple words', () => {
+    it('should return correctly', () => {
+      const words = `Pernikahan bernuansa alam juga terlihat dari pilihan hiasan yang disediakan vendor. Terlihat perpaduan nuansa bunga, daun, dan kayu dalam pameran ini.`
+      const actual = akarata.stem(words)
+      const expected = `nikah, nuansa, alam, juga, lihat, dari, pilih, hias, yang, sedia, vendor, lihat, padu, nuansa, bunga, daun, dan, kayu, dalam, pamer, ini,`
+      expect(actual.trim()).toBe(expected)
+    })
+  })
 })
 
 type Fn = (word: string) => string

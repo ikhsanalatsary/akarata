@@ -1,9 +1,17 @@
 // tslint:disable:no-any
+import { Characters } from '../types'
 import * as mainFile from './irregular-words/main'
 
-export default class IrregularWords {
-  static SPECIAL_LETTERS = ['K', 'P', 'N', 'R']
-  static ENDS_WITH_I = IrregularWords.loadWords('akhiranI')
+export type IrregularKeys = keyof typeof IrregularWords
+export type CommonCharacters = keyof typeof IrregularWords.ENDS_WITH_COMMON_CHARACTERS
+
+export default interface IrregularWords {
+  readonly [k: string]: { [k: string]: Characters } | Characters
+}
+
+export default class IrregularWords implements IrregularWords {
+  static SPECIAL_LETTERS: Characters = ['K', 'P', 'N', 'R']
+  static ENDS_WITH_I: Characters = IrregularWords.loadWords('akhiranI')
 
   static ENDS_WITH_COMMON_CHARACTERS = {
     kah: IrregularWords.loadWords('kah'),
@@ -12,14 +20,18 @@ export default class IrregularWords {
     ku: IrregularWords.loadWords('ku'),
     mu: IrregularWords.loadWords('mu'),
     nya: IrregularWords.loadWords('nya'),
-  }
+  } as const
 
-  static ENDS_WITH_SUFFIX_CHARACTERS = ['majikan'].concat(
+  static ENDS_WITH_SUFFIX_CHARACTERS: Characters = ['majikan'].concat(
     IrregularWords.ENDS_WITH_I
   )
-  static ON_PREFIX_CHARACTERS: any
+  static ON_PREFIX_CHARACTERS: { [k: string]: Characters }
+  static BEGINS_WITH_K: Characters
+  static BEGINS_WITH_P: Characters
+  static BEGINS_WITH_N: Characters
+  static BEGINS_WITH_R: Characters
 
-  static loadWords(filename: string, chopped = false) {
+  static loadWords(filename: string, chopped = false): Characters {
     let contents: string[] = (mainFile as any)[filename]
 
     if (chopped) {
@@ -31,15 +43,15 @@ export default class IrregularWords {
 }
 
 IrregularWords.SPECIAL_LETTERS.map((letter) => {
-  // console.log(letter);
-  ;(IrregularWords as any)[`BEGINS_WITH_${letter}`] = IrregularWords.loadWords(
-    `${letter.toLowerCase()}`,
-    true
-  )
+  // console.log(letter)
+  IrregularWords[
+    `BEGINS_WITH_${letter}` as IrregularKeys
+  ] = IrregularWords.loadWords(`${letter.toLowerCase()}`, true)
 })
-;(IrregularWords as any).ON_PREFIX_CHARACTERS = {
-  meng: (IrregularWords as any).BEGINS_WITH_K,
-  peng: (IrregularWords as any).BEGINS_WITH_K,
-  mem: (IrregularWords as any).BEGINS_WITH_P,
-  pem: (IrregularWords as any).BEGINS_WITH_P,
-}
+
+IrregularWords.ON_PREFIX_CHARACTERS = {
+  meng: IrregularWords.BEGINS_WITH_K,
+  peng: IrregularWords.BEGINS_WITH_K,
+  mem: IrregularWords.BEGINS_WITH_P,
+  pem: IrregularWords.BEGINS_WITH_P,
+} as const

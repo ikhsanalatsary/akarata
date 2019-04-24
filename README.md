@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
 [![codecov](https://codecov.io/gh/ikhsanalatsary/akarata/branch/master/graph/badge.svg)](https://codecov.io/gh/ikhsanalatsary/akarata)
+[![npm](https://img.shields.io/npm/v/akarata.svg?color=blue)](http://npm.im/akarata)
 
 [README English version](./README.en.md)
 
@@ -9,8 +10,11 @@ Akarata adalah pustaka JavaScript untuk mengambil akar kata/suku kata(stem) dari
 
 Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, dengan menggunakan algoritma yang dipaparkan dalam _paper_ [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), oleh Fadillah Z Tala.
 
+Akarata dibuat secara umum bisa berjalan di server menggunakan `Node.js` maupun di browser terbaru bahkan di `react-native` -pun bisa. Namun perlu memperhatikan kompatibilitas dari _platform_ tersebut. Cek di [Kompatibilitas fungsi](#kompatibilitas-fungsi)
+
 ## Dibutuhkan
-Versi Node.js >= 8.5
+
+tslib >= 1.9.0
 
 ## Instalasi
 
@@ -22,25 +26,60 @@ yarn:
 
     yarn add tslib akarata
 
+## Kompatibilitas fungsi
+
+Karena akarata di dalam fungsinya menggunakan [Array.includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes). Maka jika anda menggunakan akarata pada `Node.js` versi 4, _browser_ Edge < v14, IE, Chrome < v47, Firefox < 43, Safari < v9 dan lain-lain([lihat tabel](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Browser_compatibility)) maka membutuhkan [`polyfill`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill). Untuk caranya bisa lihat di bagian [Menambah polyfill](#menambah-polyfill)
+
+## Menambah polyfill
+
+Lewati langkah ini jika _platform_ didukung.
+
+Menggunakan `npm`:
+
+npm i ts-polyfill
+Menggunakan `yarn`:
+
+yarn add ts-polyfill
+
+### Gunakan polyfill
+
+Muat ini sebelum memuat pustaka akarata, biasanya taruh diatasnya.
+
+pada node.js:
+
+    require('ts-polyfill/lib/es2016-array-include');
+
+pada ES2015+ / Babel / TypeScript:
+
+    import 'ts-polyfill/lib/es2016-array-include';
+
+### Hanya menggunakan script tag:
+
+Jika tidak ingin melakukan instalasi `ts-polyfill`. Maka salin kode yang ada di dokumentasi [`polyfill`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill)
+
+    <script type="javascript">
+      // salin kode disini
+    <script>
+
 ## Penggunaan
 
-### Impor pustaka akarata
+### Muat pustaka akarata
 
 ES2015+ / Babel / TypeScript:
 
-    // impor pustakanya
+    // muat pustakanya
     import * as akarata from 'akarata';
     // or
     import akarata from 'akarata';
 
 CommonJS/ UMD / NodeJS:
 
-    // impor pustakanya
+    // muat pustakanya
     var akarata = require('akarata');
 
 Michael Jackson script/ MJS / NodeJS `experimental-modules`:
 
-    // impor pustakanya
+    // muat pustakanya
     import * as akarata from 'akarata';
     // or
     import akarata from 'akarata';
@@ -49,10 +88,11 @@ Michael Jackson script/ MJS / NodeJS `experimental-modules`:
 
     // sejak akarata versi > 0.1.5
     // unpkg.com/:package@:version/:file
+    // catatan `.min` menandakan versi kompres-nya
     // sebagai contoh
-    import * as akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
+    import * as akarata from 'https://unpkg.com/akarata@0.2.0/bundles/index.esm.js';
     // atau
-    import akarata from 'https://unpkg.com/akarata@0.2.0/dist/bundles/index.esm.min.js';
+    import akarata from 'https://unpkg.com/akarata@0.2.0/bundles/index.esm.min.js';
 
     // atau url absolut, secara implisit ke bundles/index.umd.js
     import akarata from 'https://unpkg.com/akarata';
@@ -80,11 +120,13 @@ Awalnya, pustaka ini merupakan implementasi dari sistem penganalisis untuk Bahas
 
 ### Langkah-langkah
 
-1. _Fork_ proyek ini
-2. Buat branch untuk fitur Anda (`git checkout -b my-new-feature`)
-3. _Commit_ perubahan-perubahan yang Anda buat (`git commit -am 'Tambahkan fitur baru'`)
-4. _Push_ ke branch itu (`git push origin my-new-feature`)
-5. Ajukan **_Pull Request_** baru
+1. Proyek ini membutuhkan versi Node.js >= 8.5
+2. _Fork_ proyek ini
+3. Buat branch untuk fitur Anda (`git checkout -b my-new-feature`)
+4. Buat tes kasus untuk fitur anda pada folder `__tests__` dan jalankan `npm test`
+5. _Commit_ perubahan-perubahan yang Anda buat (`git commit -am 'Tambahkan fitur baru'`)
+6. _Push_ ke branch itu (`git push origin my-new-feature`)
+7. Ajukan **_Pull Request_** baru
 
 ## Terima kasih
 

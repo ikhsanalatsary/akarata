@@ -1,9 +1,9 @@
-// tslint:disable:no-any
 import { Characters } from '../types'
 import * as mainFile from './irregular-words/main'
 
 export type IrregularKeys = keyof typeof IrregularWords
 export type CommonCharacters = keyof typeof IrregularWords.ENDS_WITH_COMMON_CHARACTERS
+export type fileKeys = keyof typeof mainFile
 
 export default interface IrregularWords {
   readonly [k: string]: { [k: string]: Characters } | Characters
@@ -32,7 +32,7 @@ export default class IrregularWords implements IrregularWords {
   static BEGINS_WITH_R: Characters
 
   static loadWords(filename: string, chopped = false): Characters {
-    let contents: string[] = (mainFile as any)[filename]
+    let contents: string[] = mainFile[filename as fileKeys]
 
     if (chopped) {
       contents = contents.map((word) => word.slice(1, word.length))

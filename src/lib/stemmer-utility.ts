@@ -28,13 +28,6 @@ function isEndsWith(
   return true
 }
 
-interface Position {
-  isStartsWith: string
-  isEndsWith: string
-}
-
-export type PositionKeys = keyof Position
-
 export default {
   isStartsWith,
   isEndsWith,

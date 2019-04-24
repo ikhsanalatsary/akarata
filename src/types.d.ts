@@ -27,7 +27,7 @@ export declare type MorphologyKeys = keyof StaticCollectionMorphology
 
 export declare interface Morphology {
   numberOfSyllables: number
-  flags: number | undefined | null
+  flags: Flag
   totalSyllables: (word: string) => number
   removeParticle: (word: string) => string
   removePossessivePronoun: (word: string) => string

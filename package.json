@@ -57,7 +57,8 @@
     "tala",
     "syllabus",
     "lucene",
-    "apache"
+    "apache",
+    "Indonesian Stemmer"
   ],
   "author": "Abdul Fattah Ikhsan <ikhsannetwork@gmail.com> (http://ikhsannetwork.com/)",
   "license": "MIT",
@@ -133,8 +134,8 @@
     "tslint-config-standard": "8.0.1",
     "tslint-etc": "1.2.12",
     "tslint-react": "3.6.0",
-    "typedoc": "0.14.2",
-    "typescript": "3.4.4",
+    "typedoc": "0.15.0-0",
+    "typescript": "3.4.5",
     "typescript-tslint-plugin": "0.2.1",
     "webpack-config-utils": "2.3.1"
   },

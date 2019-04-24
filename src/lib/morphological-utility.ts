@@ -6,7 +6,9 @@ import {
   MorphologyKeys,
 } from '../types'
 import IrregularWords, { CommonCharacters } from './irregular-words'
-import StemmerUtility, { PositionKeys } from './stemmer-utility'
+import StemmerUtility from './stemmer-utility'
+
+type PositionKeys = keyof typeof StemmerUtility
 
 enum Position {
   start = 'Start',
@@ -70,7 +72,7 @@ export default class MorphologicalUtility implements Morphology {
 
   numberOfSyllables = 0
 
-  // actually type of number | undefined | Characters | null
+  // actually type of number | undefined | null
   private _flags: Flag
 
   set flags(v: Flag) {
@@ -334,7 +336,7 @@ export default class MorphologicalUtility implements Morphology {
       )
     }
 
-    return false
+    // return false
   }
 
   private substituteWordCharacter(word: string, characters: string) {

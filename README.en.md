@@ -36,10 +36,11 @@ Skip this step if _platform_ is supported.
 
 use `npm`:
 
-npm i ts-polyfill
+    npm i ts-polyfill
+
 use `yarn`:
 
-yarn add ts-polyfill
+    yarn add ts-polyfill
 
 ### Usage polyfill
 

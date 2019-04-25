@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
 [![codecov](https://codecov.io/gh/ikhsanalatsary/akarata/branch/master/graph/badge.svg)](https://codecov.io/gh/ikhsanalatsary/akarata)
-[![npm](https://img.shields.io/npm/v/akarata.svg?color=blue)](http://npm.im/akarata)
+[![npm](https://img.shields.io/npm/v/akarata.svg?color=blue)](http://npm.im/akarata) [![Greenkeeper badge](https://badges.greenkeeper.io/ikhsanalatsary/akarata.svg)](https://greenkeeper.io/)
 
 [README English version](./README.en.md)
 

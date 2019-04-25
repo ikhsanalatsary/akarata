@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ikhsanalatsary/akarata.svg?branch=master)](https://travis-ci.org/ikhsanalatsary/akarata)
 [![codecov](https://codecov.io/gh/ikhsanalatsary/akarata/branch/master/graph/badge.svg)](https://codecov.io/gh/ikhsanalatsary/akarata)
-[![npm](https://img.shields.io/npm/v/akarata.svg?color=blue)](http://npm.im/akarata)
+[![npm](https://img.shields.io/npm/v/akarata.svg?color=blue)](http://npm.im/akarata) [![Greenkeeper badge](https://badges.greenkeeper.io/ikhsanalatsary/akarata.svg)](https://greenkeeper.io/)
 
 [README Bahasa version](./README.md)
 
@@ -56,7 +56,7 @@ on ES2015+ / Babel / TypeScript:
 
 ### Only use script tag:
 
-If you do not want to install `ts-polyfill`. Then copy the code in the documentation [`polyfill`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill)
+If you do not want to install `ts-polyfill` and the target is browser only. Then copy the code in the documentation [`polyfill`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill)
 
     <script type="javascript">
       // paste code here

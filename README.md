@@ -10,7 +10,7 @@ Akarata adalah pustaka JavaScript untuk mengambil akar kata/suku kata(stem) dari
 
 Akarata diilhami dari stem kata bahasa Indonesia berdasarkan Porter Stemmer, dengan menggunakan algoritma yang dipaparkan dalam _paper_ [**A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia**](http://www.illc.uva.nl/Publications/ResearchReports/MoL-2003-02.text.pdf), oleh Fadillah Z Tala.
 
-Akarata dibuat secara umum bisa berjalan di server menggunakan `Node.js` maupun di browser terbaru bahkan di `react-native` -pun bisa. Namun perlu memperhatikan kompatibilitas dari _platform_ tersebut. Cek di [Kompatibilitas fungsi](#kompatibilitas-fungsi)
+Akarata dibuat secara umum bisa berjalan di server menggunakan `Node.js` maupun di browser terbaru bahkan di `react-native` sekalipun. Namun perlu memperhatikan kompatibilitas dari _platform_ tersebut. Cek di [Kompatibilitas fungsi](#kompatibilitas-fungsi)
 
 ## Dibutuhkan
 
@@ -56,7 +56,7 @@ pada ES2015+ / Babel / TypeScript:
 
 ### Hanya menggunakan script tag:
 
-Jika tidak ingin melakukan instalasi `ts-polyfill`. Maka salin kode yang ada di dokumentasi [`polyfill`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill)
+Jika tidak ingin melakukan instalasi `ts-polyfill` dan hanya menjalankan di _browser_. Maka salin kode yang ada di dokumentasi [`polyfill`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes#Polyfill)
 
     <script type="javascript">
       // salin kode disini

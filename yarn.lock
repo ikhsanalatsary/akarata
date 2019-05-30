@@ -551,10 +551,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
   integrity sha512-szA3x/3miL90ZJxUCzx9haNbK5/zmPieGraZEe4WI+3srN0eGLiT22NXeMHmyhNEopn+IrxqMc7wdVwvPl8meg==
 
-"@types/node@^11.13.5":
-  version "11.13.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.7.tgz#85dbb71c510442d00c0631f99dae957ce44fd104"
-  integrity sha512-suFHr6hcA9mp8vFrZTgrmqW2ZU3mbWsryQtQlY/QvwTISCw7nw/j+bCQPPohqmskhmqa5wLNuMHTTsc+xf1MQg==
+"@types/node@^12.0.3":
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.3.tgz#5d8d24e0033fc6393efadc85cb59c1f638095c9a"
+  integrity sha512-zkOxCS/fA+3SsdA+9Yun0iANxzhQRiNwTvJSr6N95JhuJ/x27z9G2URx1Jpt3zYFfCGUXZGL5UDxt5eyLE7wgw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -5673,13 +5673,13 @@ rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0:
     estree-walker "^0.6.0"
     micromatch "^3.1.10"
 
-rollup@1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.10.1.tgz#aeb763bbe98f707dc6496708db88372fa66687e7"
-  integrity sha512-pW353tmBE7QP622ITkGxtqF0d5gSRCVPD9xqM+fcPjudeZfoXMFW2sCzsTe2TU/zU1xamIjiS9xuFCPVT9fESw==
+rollup@1.12.5:
+  version "1.12.5"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.12.5.tgz#11840535a2bc3591e95583c111d55fdf795e55c8"
+  integrity sha512-XF5YdpeKX4ueGpBCW07AxPJJHu7SHaobYzu2lZnMPX908Ely2LZF0a0EQPgb+iVy5kP4cb4QT3nXIAnyAxpL3A==
   dependencies:
     "@types/estree" "0.0.39"
-    "@types/node" "^11.13.5"
+    "@types/node" "^12.0.3"
     acorn "^6.1.1"
 
 rsvp@^4.8.4:

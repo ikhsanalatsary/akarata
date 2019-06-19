@@ -6376,10 +6376,10 @@ tslint-eslint-rules@^5.3.1:
     tslib "1.9.0"
     tsutils "^3.0.0"
 
-tslint-etc@1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/tslint-etc/-/tslint-etc-1.5.2.tgz#02b15c3633bf9a558e7ed6d1afd07c75f034d9de"
-  integrity sha512-GhroqSFTpA0+FUQf951cS4ld8nkD83JuNR8m3c4hIGkF2Jo1mJNADg/6iNK6MggsVCJxGNK5fVVNP3dzO8tShg==
+tslint-etc@1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/tslint-etc/-/tslint-etc-1.5.4.tgz#252c72d99a0928d32f0d3acc48d387f33b051569"
+  integrity sha512-M3aSmJ9GdWatoiqoK0YbiHi2uuUZvktBxzAsmzYi2clUextwwjckld3T195Y/ujyvb29X0yM/go9q15p2uAeyg==
   dependencies:
     "@phenomnomnominal/tsquery" "^3.0.0"
     tslib "^1.8.0"

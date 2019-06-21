@@ -546,10 +546,10 @@
   version "10.11.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.4.tgz#e8bd933c3f78795d580ae41d86590bfc1f4f389d"
 
-"@types/node@11.13.8":
-  version "11.13.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
-  integrity sha512-szA3x/3miL90ZJxUCzx9haNbK5/zmPieGraZEe4WI+3srN0eGLiT22NXeMHmyhNEopn+IrxqMc7wdVwvPl8meg==
+"@types/node@12.0.9":
+  version "12.0.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.9.tgz#18e0fc7bc6acc71f43a1a6ec9096c30d3954dd5c"
+  integrity sha512-xxrghIb6jMoEkNtdzGMUezwCEGuBd4QSA/Fko1XaUYpn6P/LwVw7UGpf4NzwGZXRC96fDgBJcBX7bXU0T52nWA==
 
 "@types/node@^11.13.5":
   version "11.13.7"

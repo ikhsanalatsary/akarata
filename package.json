@@ -103,7 +103,7 @@
     "awesome-typescript-loader": "5.2.1",
     "chalk": "2.4.2",
     "codecov": "3.3.0",
-    "commitizen": "3.1.1",
+    "commitizen": "4.0.2",
     "cp-file": "7.0.0",
     "cross-var": "1.1.0",
     "cz-conventional-changelog": "2.1.0",

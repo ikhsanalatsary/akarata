@@ -132,7 +132,7 @@
     "tslint": "5.16.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-config-standard": "8.0.1",
-    "tslint-etc": "1.5.2",
+    "tslint-etc": "1.6.0",
     "tslint-react": "4.0.0",
     "typedoc": "0.15.0-0",
     "typescript": "3.4.5",

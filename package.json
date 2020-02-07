@@ -102,7 +102,7 @@
     "@types/webpack-config-utils": "2.3.0",
     "awesome-typescript-loader": "5.2.1",
     "chalk": "2.4.2",
-    "codecov": "3.3.0",
+    "codecov": "3.6.5",
     "commitizen": "3.1.1",
     "cp-file": "7.0.0",
     "cross-var": "1.1.0",

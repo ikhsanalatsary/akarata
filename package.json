@@ -104,7 +104,7 @@
     "chalk": "2.4.2",
     "codecov": "3.3.0",
     "commitizen": "3.1.1",
-    "cp-file": "7.0.0",
+    "cp-file": "8.0.1",
     "cross-var": "1.1.0",
     "cz-conventional-changelog": "2.1.0",
     "gzip-size-cli": "3.0.0",

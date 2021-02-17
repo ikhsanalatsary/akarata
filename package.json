@@ -101,7 +101,7 @@
     "@types/prettier": "1.16.3",
     "@types/webpack-config-utils": "2.3.0",
     "awesome-typescript-loader": "5.2.1",
-    "chalk": "2.4.2",
+    "chalk": "3.0.0",
     "codecov": "3.3.0",
     "commitizen": "3.1.1",
     "cp-file": "7.0.0",
